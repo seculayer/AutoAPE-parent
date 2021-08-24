@@ -1,0 +1,11 @@
+{
+  "insecure-registries" : ["registry.seculayer.com:31500"],
+  "default-runtime": "nvidia",
+  "data-root": "[@app_dir]/data/docker",
+  "runtimes": {
+    "nvidia": {
+      "path": "nvidia-container-runtime",
+      "runtimeArgs": []
+    }
+  }
+}

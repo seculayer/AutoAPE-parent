@@ -1,0 +1,4 @@
+{
+  "insecure-registries" : ["registry.seculayer.com:31500"],
+  "data-root": "[@app_dir]/data/docker"
+}

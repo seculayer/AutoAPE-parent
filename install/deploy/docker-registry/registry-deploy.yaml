@@ -1,0 +1,58 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docker-registry
+  labels:
+    app: docker-registry
+  namespace: [@namespace]
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docker-registry
+  template:
+    metadata:
+      labels:
+        app: docker-registry
+    spec:
+      containers:
+        - name: docker-registry
+          image: registry:2.7.1
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - name: docker-images
+              mountPath: /var/lib/registry/docker/registry/v2
+            - name: timezone-config
+              mountPath: /etc/localtime
+      volumes:
+        - name: docker-images
+          hostPath:
+            path: [@app_dir]/data/storage/docker-images
+            type: Directory
+        - name: timezone-config
+          hostPath:
+            path: /usr/share/zoneinfo/Asia/Seoul
+      nodeSelector:
+        deploy: "true"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: docker-registry
+  name: docker-registry-svc
+  namespace: [@namespace]
+spec:
+  type: NodePort
+  selector:
+    app: docker-registry
+  #    release: docker-registry
+  ports:
+    - name: docker-registry-http
+      port: 5000
+      protocol: TCP
+      targetPort: 5000
+      nodePort: 31500
+---

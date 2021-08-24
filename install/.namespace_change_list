@@ -1,0 +1,3 @@
+./deploy/namespaces/ml-namespace.yaml
+./deploy/database/ml-db-deploy.yaml
+./deploy/docker-registry/registry-deploy.yaml

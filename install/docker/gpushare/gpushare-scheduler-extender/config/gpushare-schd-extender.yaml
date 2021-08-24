@@ -1,0 +1,124 @@
+# rbac.yaml
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: gpushare-schd-extender
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - update
+  - patch
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - bindings
+  - pods/binding
+  verbs:
+  - create
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: gpushare-schd-extender
+  namespace: kube-system
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: gpushare-schd-extender
+  namespace: kube-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: gpushare-schd-extender
+subjects:
+- kind: ServiceAccount
+  name: gpushare-schd-extender
+  namespace: kube-system
+
+# deployment yaml
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: gpushare-schd-extender
+  namespace: kube-system
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+        app: gpushare
+        component: gpushare-schd-extender
+  template:
+    metadata:
+      labels:
+        app: gpushare
+        component: gpushare-schd-extender
+      annotations:
+        scheduler.alpha.kubernetes.io/critical-pod: ''
+    spec:
+      hostNetwork: true
+      tolerations:
+      - effect: NoSchedule
+        operator: Exists
+        key: node-role.kubernetes.io/master
+      - effect: NoSchedule
+        operator: Exists
+        key: node.cloudprovider.kubernetes.io/uninitialized
+      nodeSelector:
+         node-role.kubernetes.io/master: ""
+      serviceAccount: gpushare-schd-extender
+      containers:
+        - name: gpushare-schd-extender
+          image: registry.eyecloudai:31500/eyecloudai/gpu-schd-ext:1.0.0
+          env:
+          - name: LOG_LEVEL
+            value: debug
+          - name: PORT
+            value: "12345"
+
+# service.yaml            
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gpushare-schd-extender
+  namespace: kube-system
+  labels:
+    app: gpushare
+    component: gpushare-schd-extender
+spec:
+  type: NodePort
+  ports:
+  - port: 12345
+    name: http
+    targetPort: 12345
+    nodePort: 32766
+  selector:
+    # select app=ingress-nginx pods
+    app: gpushare
+    component: gpushare-schd-extender   

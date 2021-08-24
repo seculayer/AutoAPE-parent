@@ -1,0 +1,79 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apeautoml-db
+  labels:
+    app: apeautoml-db
+  namespace: [@namespace]
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apeautoml-db
+  template:
+    metadata:
+      labels:
+        app: apeautoml-db
+    spec:
+      containers:
+        - name: apeautoml-db
+          image: mariadb:10.5.2
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: db-data
+              mountPath: /var/lib/mysql
+            - name: timezone-config
+              mountPath: /etc/localtime
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb-user
+                  key: password
+            - name: MYSQL_DATABASE
+              value: APEAutoML
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb-user
+                  key: username
+            - name: MYSQL_ROOT_HOST
+              value: '%'
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb-user
+                  key: password
+      volumes:
+        - name: db-data
+          hostPath:
+            path: [@app_dir]/data/storage/db
+            type: Directory
+
+        - name: timezone-config
+          hostPath:
+            path: /usr/share/zoneinfo/Asia/Seoul
+
+      nodeSelector:
+        db: "true"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: apeautoml-db
+  name:  apeautoml-db-svc
+  namespace: [@namespace]
+spec:
+  type: NodePort
+  selector:
+    app:  apeautoml-db
+  ports:
+    - name: apeautoml-db
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
+      nodePort: 30306
+---
