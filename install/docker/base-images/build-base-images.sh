@@ -30,3 +30,7 @@ then
   docker build -f ./base-images/py3.7-cuda10.0/Dockerfile.gpu -t $REGISTRY_URL/ape/python-base-gpu:$PYTHON_VER ./base-images/py3.7-cuda10.0
   docker push $REGISTRY_URL/ape/python-base-gpu:$PYTHON_VER
 fi
+
+# DB client
+docker build -f ./db-client/Dockerfile -t $REGISTRY_URL/ape/db-client:1.0.0 ./db-client
+docker push $REGISTRY_URL/ape/db-client:1.0.0
