@@ -1,4 +1,39 @@
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: mrms-user
+  namespace: [@namespace]
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: mrms-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: mrms-user
+    namespace: [@namespace]
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mrms-svc
+  namespace: [@namespace]
+spec:
+  type: "LoadBalancer"
+  ports:
+    - name: "ssh"
+      port: 10022
+      targetPort: 22
+  selector:
+    app: mrms
+status:
+  loadBalancer: {}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,22 +54,22 @@ spec:
       serviceAccountName: mrms-user
       containers:
         - name: mrms
-          image: [@]/eyecloudai/mlms:2.0.0.202104
+          image: [@registry_url]/ape/mrms:1.0.0
           imagePullPolicy: Always
-          command: ["/bin/bash", "./mlms.sh"]
+          command: ["/bin/bash", "./mrms.sh"]
           env:
             - name: TZ
               value: Asia/Seoul
           volumeMounts:
             - name: timezone-config
               mountPath: /etc/localtime
-            - name: eyecloudai-data-proc-ape
-              mountPath: /eyeCloudAI/data/processing/ape
-            - name: mlms-conf-v
-              mountPath: [@app_dir]/app/ape/mlms/conf
+            - name: automl-processing
+              mountPath: [@app_dir]/data/processing
+            - name: mrms-conf-v
+              mountPath: [@app_dir]/app/ape/mrms/conf
 
         - name: mrms-sftp
-          image: [@]/ape/sftp-server:1.0.0
+          image: [@registry_url]/ape/sftp-server:1.0.0
           ports:
             - containerPort: 22
           volumeMounts:
@@ -44,30 +79,15 @@ spec:
               mountPath: [@app_dir]/data/processing/ape
 
       volumes:
-        - name: eyecloudai-data-proc-ape
+        - name: automl-processing
           hostPath:
-            path: [@app_dir]/data/processing/ape
-        - name: custom
-          hostPath:
-            path: /eyeCloudAI/app/ape/custom
+            path: [@app_dir]/data/processing
         - name: timezone-config
           hostPath:
             path: /usr/share/zoneinfo/Asia/Seoul
-        - name: mlms-conf-v
+        - name: mrms-conf-v
           configMap:
-            name: mlms-conf
-        - name: extractor-conf-v
-          configMap:
-            name: extractor-conf
-        - name: db-conf-v
-          configMap:
-            name: db-conf
-        - name: dataconverter-conf-v
-          configMap:
-            name: dataconverter-conf
-        - name: wpms-conf-v
-          configMap:
-            name: wpms-conf
-
+            name: mrms-conf
       nodeSelector:
         app: "true"
+---

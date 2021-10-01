@@ -1,0 +1,56 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: ape-web-svc
+  namespace: [@namespace]
+spec:
+  type: "LoadBalancer"
+  ports:
+    - name: "ssh"
+      port: 10122
+      targetPort: 22
+  selector:
+    app: ape-web
+status:
+  loadBalancer: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ape-web
+  labels:
+    app: ape-web
+  namespace: [@namespace]
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ape-web
+  template:
+    metadata:
+      labels:
+        app: ape-web
+    spec:
+      containers:
+        - name: mrms-sftp
+          image: [@registry_url]/ape/sftp-server:1.0.0
+          ports:
+          - containerPort: 22
+          volumeMounts:
+          - name: timezone-config
+            mountPath: /etc/localtime
+          - name: eyecloudai-data-proc-ape
+            mountPath: [@app_dir]/data/processing/ape
+
+      volumes:
+        - name: automl-processing
+          hostPath:
+            path: [@app_dir]/data/processing
+        - name: timezone-config
+          hostPath:
+          path: /usr/share/zoneinfo/Asia/Seoul
+
+      nodeSelector:
+        web: "true"
+---
