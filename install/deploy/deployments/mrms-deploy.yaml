@@ -1,0 +1,73 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mrms
+  labels:
+    app: mrms
+  namespace: [@namespace]
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mrms
+  template:
+    metadata:
+      labels:
+        app: mrms
+    spec:
+      serviceAccountName: mrms-user
+      containers:
+        - name: mrms
+          image: [@]/eyecloudai/mlms:2.0.0.202104
+          imagePullPolicy: Always
+          command: ["/bin/bash", "./mlms.sh"]
+          env:
+            - name: TZ
+              value: Asia/Seoul
+          volumeMounts:
+            - name: timezone-config
+              mountPath: /etc/localtime
+            - name: eyecloudai-data-proc-ape
+              mountPath: /eyeCloudAI/data/processing/ape
+            - name: mlms-conf-v
+              mountPath: [@app_dir]/app/ape/mlms/conf
+
+        - name: mrms-sftp
+          image: [@]/ape/sftp-server:1.0.0
+          ports:
+            - containerPort: 22
+          volumeMounts:
+            - name: timezone-config
+              mountPath: /etc/localtime
+            - name: eyecloudai-data-proc-ape
+              mountPath: [@app_dir]/data/processing/ape
+
+      volumes:
+        - name: eyecloudai-data-proc-ape
+          hostPath:
+            path: [@app_dir]/data/processing/ape
+        - name: custom
+          hostPath:
+            path: /eyeCloudAI/app/ape/custom
+        - name: timezone-config
+          hostPath:
+            path: /usr/share/zoneinfo/Asia/Seoul
+        - name: mlms-conf-v
+          configMap:
+            name: mlms-conf
+        - name: extractor-conf-v
+          configMap:
+            name: extractor-conf
+        - name: db-conf-v
+          configMap:
+            name: db-conf
+        - name: dataconverter-conf-v
+          configMap:
+            name: dataconverter-conf
+        - name: wpms-conf-v
+          configMap:
+            name: wpms-conf
+
+      nodeSelector:
+        app: "true"

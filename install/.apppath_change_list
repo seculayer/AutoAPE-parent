@@ -6,3 +6,5 @@
 ./deploy/docker/base-images/py3.7/Dockerfile
 ./deploy/docker/base-images/py3.7-cuda10.0/Dockerfile
 ./deploy/configmap/mrms/log4j.properties
+./deploy/deployments/mrms-deploy.yaml
+./deploy/deployments/web-deploy.yaml
