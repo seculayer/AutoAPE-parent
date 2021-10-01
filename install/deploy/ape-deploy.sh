@@ -70,3 +70,6 @@ setupConfig() {
         done < ".registry_url_change_list"
 }
 setupConfig
+
+kubectl apply -f $BASE_DIR/deployments/mrms-deploy.yaml
+kubectl apply -f $BASE_DIR/deployments/web-deploy.yaml
