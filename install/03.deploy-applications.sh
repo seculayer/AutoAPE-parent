@@ -20,6 +20,7 @@ source "${BASE_DIR}"/conf/ape.conf
 # label setting
 kubectl label nodes `echo $MASTER_HOSTNAME | tr '[A-Z]' '[a-z]'` deploy=true
 kubectl label nodes `echo $DB_HOSTNAME | tr '[A-Z]' '[a-z]'` db=true
+kubectl lable nodes `echo $WEB_HOSTNAME | tr '[A-Z]' '[a-z]'` web=true
 
 kubectl taint nodes --all node-role.kubernetes.io/master-
 
