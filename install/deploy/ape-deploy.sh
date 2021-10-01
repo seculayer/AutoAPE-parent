@@ -42,6 +42,7 @@ docker run --name db-client\
   < "${BASE_DIR}"/database/sql/VAR_FUNC_INFO.sql
 docker rm db-client
 
+
 ### delete database deployment
 # kubectl delete secret/mariadb-user -n $APEML_NAMESPACE
 # kubectl delete -f "${BASE_DIR}"/database/ml-db-deploy.yaml
@@ -54,3 +55,18 @@ chmod +x apply-configmap.sh
 ./apply-configmap.sh
 cd ../
 # --------------------------------------------------------------------
+
+setupConfig() {
+        echo "--------------------------------"
+        echo "[ Set Registry URL]"
+        echo "--------------------------------"
+        while IFS= read -r line; do
+                OLD_REGISTRY_URL="[@registry_url]"
+                escape_old=$(printf '%s\n' "${OLD_REGISTRY_URL}" | sed -e 's/[]\/$*.^[]/\\&/g')
+                escape_new=$(printf '%s\n' "${REGISTRY_URL}" | sed -e 's/[]\/$*.^[]/\\&/g')
+
+                sed -i "s/${escape_old}/${escape_new}/g" ${line} 2>/dev/null
+                if [ "$?" -eq "0" ] ; then echo "> ${line} is Applied!" ; fi
+        done < ".registry_url_change_list"
+}
+setupConfig
