@@ -17,17 +17,17 @@ fi
 source "${BASE_DIR}"/../../conf/ape.conf
 
 # JAVA 11 base image
-docker build -f ./base-images/java11/Dockerfile -t $REGISTRY_URL/ape/java-base:$JAVA_VER ./base-images/java11
+docker build -f ./java11/Dockerfile -t $REGISTRY_URL/ape/java-base:$JAVA_VER ./java11
 docker push $REGISTRY_URL/ape/java-base:$JAVA_VER
 
 # python3.7
-docker build -f ./base-images/py3.7/Dockerfile -t $REGISTRY_URL/ape/python-base:$PYTHON_VER ./base-images/py3.7
+docker build -f ./py3.7/Dockerfile -t $REGISTRY_URL/ape/python-base:$PYTHON_VER ./py3.7
 docker push $REGISTRY_URL/ape/python-base:$PYTHON_VER
 
 # python3.7 with CUDA & cuDNN
 if [ "${GPU_USE}" == "true" ]
 then
-  docker build -f ./base-images/py3.7-cuda10.0/Dockerfile.gpu -t $REGISTRY_URL/ape/python-base-gpu:$PYTHON_VER ./base-images/py3.7-cuda10.0
+  docker build -f ./py3.7-cuda10.0/Dockerfile.gpu -t $REGISTRY_URL/ape/python-base-gpu:$PYTHON_VER ./py3.7-cuda10.0
   docker push $REGISTRY_URL/ape/python-base-gpu:$PYTHON_VER
 fi
 

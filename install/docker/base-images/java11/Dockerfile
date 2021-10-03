@@ -18,5 +18,5 @@ RUN rpm --import http://repos.azulsystems.com/RPM-GPG-KEY-azulsystems && \
 
 ENV JAVA_HOME=/usr/lib/jvm/zulu-11
 
-RUN mkdir -p /[@app_dir]
-WORKDIR /[@app_dir]
+RUN mkdir -p [@app_dir]
+WORKDIR [@app_dir]
