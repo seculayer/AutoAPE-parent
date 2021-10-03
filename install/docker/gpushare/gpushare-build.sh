@@ -17,7 +17,7 @@ fi
 source "${BASE_DIR}"/../../conf/ape.conf
 
 ### device plugin
-docker build -t "${REGISTRY_URL}"/eyecloudai/gpu-device-plugin:1.0.0 ./gpushare-device-plugin
+docker build -t "${REGISTRY_URL}"/ape/gpu-device-plugin:1.0.0 ./gpushare-device-plugin
 docker push "${REGISTRY_URL}"/ape/gpu-device-plugin:1.0.0
 
 ### scheduler
