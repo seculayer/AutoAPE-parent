@@ -48,7 +48,7 @@ echo "image build"
 cd ../docker/ || exit
 chmod +x ./build-image.sh
 ./build-image.sh
-cd deploy/ || exit
+cd ../deploy/ || exit
 
 # --------------------------------------------------------------------
 echo "database deploy...."
