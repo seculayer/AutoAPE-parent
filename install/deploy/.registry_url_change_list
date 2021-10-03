@@ -1,2 +1,2 @@
-./deploy/deployments/mrms-deploy.yaml
-./deploy/deployments/web-deploy.yaml
+./deployments/mrms-deploy.yaml
+./deployments/web-deploy.yaml
