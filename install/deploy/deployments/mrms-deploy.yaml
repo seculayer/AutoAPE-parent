@@ -54,7 +54,7 @@ spec:
       serviceAccountName: mrms-user
       containers:
         - name: mrms
-          image: [@registry_url]/ape/mrms:1.0.0
+          image: [@registry_url]/ape/automl-mrms:1.0.0
           imagePullPolicy: Always
           command: ["/bin/bash", "./mrms.sh"]
           env:

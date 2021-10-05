@@ -67,3 +67,9 @@ setupConfig() {
         done < ".sftp_change_list"
 }
 setupConfig
+
+kubectl create configmap mrms-conf \
+  --from-file="${BASE_DIR}"/mrms/db.properties \
+  --from-file="${BASE_DIR}"/mrms/log4j.properties \
+  --from-file="${BASE_DIR}"/mrms/mrms-conf.xml \
+  -n apeautoml
