@@ -19,5 +19,5 @@ source "${BASE_DIR}"/../../conf/ape.conf
 # Build the Docker Image of SFTP Server
 docker build --build-arg SSH_MASTER_USER=${SSH_MASTER_USER} \
   --build-arg SSH_MASTER_PASS=${SSH_MASTER_PASS} \
-  -t "${REGISTRY_URL}"/ape/sftp-server:1.0.0 ./sftp-server
+  -t "${REGISTRY_URL}"/ape/sftp-server:1.0.0 .
 docker push "${REGISTRY_URL}"/ape/sftp-server:1.0.0

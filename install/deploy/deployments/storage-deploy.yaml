@@ -2,7 +2,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: ape-web-svc
+  name: ape-storage-svc
   namespace: [@namespace]
 spec:
   type: "LoadBalancer"
@@ -18,39 +18,39 @@ status:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ape-web
+  name: ape-storage
   labels:
-    app: ape-web
+    app: ape-storage
   namespace: [@namespace]
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ape-web
+      app: ape-storage
   template:
     metadata:
       labels:
-        app: ape-web
+        app: ape-storage
     spec:
       containers:
-        - name: mrms-sftp
+        - name: storage-sftp
           image: [@registry_url]/ape/sftp-server:1.0.0
           ports:
           - containerPort: 22
           volumeMounts:
           - name: timezone-config
             mountPath: /etc/localtime
-          - name: eyecloudai-data-proc-ape
-            mountPath: [@app_dir]/data/processing/ape
+          - name: storage-upload
+            mountPath: [@app_dir]/app/www/store/upload/
 
       volumes:
-        - name: automl-processing
+        - name: storage-upload
           hostPath:
-            path: [@app_dir]/data/processing
+            path: [@app_dir]/app/www/store/upload/
         - name: timezone-config
           hostPath:
-          path: /usr/share/zoneinfo/Asia/Seoul
+            path: /usr/share/zoneinfo/Asia/Seoul
 
       nodeSelector:
-        web: "true"
+        storage: "true"
 ---

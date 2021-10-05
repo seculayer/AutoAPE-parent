@@ -17,28 +17,28 @@ fi
 source "${BASE_DIR}"/../conf/ape.conf
 
 # base images JAVA / Python / Python with CUDA & cuDNN
-cd ./base-images || exit
+cd "${BASE_DIR}"/base-images || exit
 chmod +x build-base-images.sh
 ./build-base-images.sh
-cd ../
+cd "${BASE_DIR}"/
 
 # GPU Sharing
 if [ "${GPU_USE}" == "true" ]
 then
-  cd ./gpushare || exit
+  cd "${BASE_DIR}"/gpushare || exit
   chmod +x gpushare-build.sh
   ./gpushare-build.sh
-  cd ../
+  cd "${BASE_DIR}"/
 fi
 
 # SSH Server
-cd ./sftp-server || exit
+cd "${BASE_DIR}"/sftp-server || exit
 chmod +x build-sftp-server.sh
 ./build-sftp-server.sh
-cd ../
+cd "${BASE_DIR}"/
 
 # AES256
-cd ./aes || exit
+cd "${BASE_DIR}"/aes || exit
 chmod +x build.sh
 ./build.sh
-cd ../
+cd "${BASE_DIR}"/

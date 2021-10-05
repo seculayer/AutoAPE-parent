@@ -13,22 +13,6 @@ fi
 # Configuration load
 source "${BASE_DIR}"/../conf/ape.conf
 
-
-setupConfig() {
-        echo "--------------------------------"
-        echo "[ Set Registry URL]"
-        echo "--------------------------------"
-        while IFS= read -r line; do
-                OLD_REGISTRY_URL="[@registry_url]"
-                escape_old=$(printf '%s\n' "${OLD_REGISTRY_URL}" | sed -e 's/[]\/$*.^[]/\\&/g')
-                escape_new=$(printf '%s\n' "${REGISTRY_URL}" | sed -e 's/[]\/$*.^[]/\\&/g')
-
-                sed -i "s/${escape_old}/${escape_new}/g" ${line} 2>/dev/null
-                if [ "$?" -eq "0" ] ; then echo "> ${line} is Applied!" ; fi
-        done < ".registry_url_change_list"
-}
-setupConfig
-
 # --------------------------------------------------------------------
 echo "make directories"
 mkdir -p "$APP_DIR"/data/storage/db
@@ -78,8 +62,7 @@ chmod +x apply-configmap.sh
 ./apply-configmap.sh
 cd ../
 # --------------------------------------------------------------------
-
-
+echo "apply deployments"
 
 kubectl apply -f $BASE_DIR/deployments/mrms-deploy.yaml
-kubectl apply -f $BASE_DIR/deployments/web-deploy.yaml
+kubectl apply -f $BASE_DIR/deployments/storage-deploy.yaml

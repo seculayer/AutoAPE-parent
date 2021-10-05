@@ -2,4 +2,4 @@
 ./deploy/database/ml-db-deploy.yaml
 ./deploy/docker-registry/registry-deploy.yaml
 ./deploy/deployments/mrms-deploy.yaml
-./deploy/deployments/web-deploy.yaml
+./deploy/deployments/storage-deploy.yaml

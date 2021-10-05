@@ -75,8 +75,8 @@ spec:
           volumeMounts:
             - name: timezone-config
               mountPath: /etc/localtime
-            - name: eyecloudai-data-proc-ape
-              mountPath: [@app_dir]/data/processing/ape
+            - name: automl-processing
+              mountPath: [@app_dir]/data/processing
 
       volumes:
         - name: automl-processing
