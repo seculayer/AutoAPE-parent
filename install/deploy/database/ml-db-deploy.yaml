@@ -18,7 +18,8 @@ spec:
     spec:
       containers:
         - name: apeautoml-db
-          image: mariadb:10.5.2
+          #image: mariadb:10.5.2
+          image: testdb:1.0.0
           ports:
             - containerPort: 3306
           volumeMounts:
@@ -51,11 +52,9 @@ spec:
           hostPath:
             path: [@app_dir]/data/storage/db
             type: Directory
-
         - name: timezone-config
           hostPath:
             path: /usr/share/zoneinfo/Asia/Seoul
-
       nodeSelector:
         db: "true"
 ---
