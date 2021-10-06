@@ -1,4 +1,5 @@
 SET NAMES utf8mb4;
+
 INSERT INTO VAR_FUNC_INFO VALUES('1', '변환안함', 'NotNormal', '1', '[[@not_normal()]]', '0', '- 필드값을 변환하지 고 원본을 그대로 사용한다.', 'admin', '202108301306', 'N');
 INSERT INTO VAR_FUNC_INFO VALUES('2', 'MinMaxNormalize', 'MinMaxNormal', '2', '[[@minmax_normal()]]', '0', '- min max normalization 변환 함수 태그<br />- 인자는 없고 최소값과 최대값은 통계정보를 사용한다.<br />- 최소값은 1, 최대값은 255 인경우 숫자 192를 변환 할 경우 설정과 결과값은 아래와 같다.<br />예> 192 => 0.7520', 'admin', '202108301306', 'N');
 INSERT INTO VAR_FUNC_INFO VALUES('3', 'DecimalScaling', 'DecimalScaleNormal', '3', '[[@decimal_scale()]]', '0', '- decimal scaling 변환 함수 태그<br />- 인자는 없고 최대값은 통계 정보를 사용한다.<br />- 숫자 192를 변환 할 경우 설정과 결과값은 아래와 같다.<br />예> 192 => 0.7181848', 'admin', '202108301306', 'N');
