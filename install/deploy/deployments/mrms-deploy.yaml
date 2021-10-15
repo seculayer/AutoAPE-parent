@@ -24,11 +24,16 @@ metadata:
   name: mrms-svc
   namespace: [@namespace]
 spec:
-  type: "LoadBalancer"
+  type: NodePort
   ports:
     - name: "ssh"
       port: 10022
       targetPort: 22
+      nodePort: 30022
+    - name: "mrms-servlet"
+      port: 9200
+      targetPort: 9200
+      nodePort: 31920
   selector:
     app: mrms
 status:
@@ -56,6 +61,8 @@ spec:
         - name: mrms
           image: [@registry_url]/ape/automl-mrms:1.0.0
           imagePullPolicy: Always
+          ports:
+            - containerPort: 9200
           command: ["/bin/bash", "./mrms.sh"]
           env:
             - name: TZ
