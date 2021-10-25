@@ -2,7 +2,6 @@
 ./conf/daemon-gpu.json
 ./deploy/database/ml-db-deploy.yaml
 ./deploy/docker-registry/registry-deploy.yaml
-./deploy/configmap/mrms/log4j.properties
 ./deploy/deployments/mrms-deploy.yaml
 ./deploy/deployments/storage-deploy.yaml
 ./docker/base-images/java11/Dockerfile

@@ -1,0 +1,54 @@
+<configuration>
+    <!-- app path setting -->
+    <property>
+        <name>dir_data_root</name>
+        <value>/eyeCloudAI/data/processing/ape/da</value>
+        <description>Data root directory</description>
+    </property>
+    <property>
+        <name>dir_data_analyzer</name>
+        <value>/processing/ape/da</value>
+        <description>Data root directory</description>
+    </property>
+    <!-- log setting -->
+    <property>
+        <name>dir_log</name>
+        <value>/eyeCloudAI/logs</value>
+        <description>None</description>
+    </property>
+    <property>
+        <name>log_name</name>
+        <value>DataAnalyzer</value>
+        <description>None</description>
+    </property>
+    <property>
+        <name>log_level</name>
+        <value>INFO</value>
+        <description>[INFO, DEBUG, WARN, ERROR, CRITICAL]</description>
+    </property>
+    <!-- hosts -->
+    <property>
+        <name>storage_svc</name>
+        <value>ape-storage-svc</value>
+    </property>
+    <property>
+        <name>storage_sftp_port</name>
+        <value>10122</value>
+    </property>
+    <property>
+        <name>mrms_svc</name>
+        <value>mrms-svc</value>
+    </property>
+    <property>
+        <name>mrms_sftp_port</name>
+        <value>10022</value>
+    </property>
+    <property>
+        <name>ssh_username</name>
+        <value>[@sshusername]</value>
+    </property>
+    <property>
+        <name>ssh_password</name>
+        <value>[@sshpassword]</value>
+    </property>
+</configuration>

@@ -16,18 +16,6 @@ fi
 ##########################################################################
 source ${BASE_DIR}/../../conf/ape.conf
 
-# ENCRYPT DB USERNAME PASSWORD
-AES_DB_USERNAME=`docker run --name encrypt ${REGISTRY_URL}/ape/ape-aes:1.0.0 ./run.sh $DB_USERNAME`
-docker rm encrypt
-AES_DB_PASSWORD=`docker run --name encrypt ${REGISTRY_URL}/ape/ape-aes:1.0.0 ./run.sh $DB_PASSWORD`
-docker rm encrypt
-
-# ENCRYPT SFTP USERNAME PASSWORD
-AES_SFTP_USERNAME=`docker run --name encrypt ${REGISTRY_URL}/ape/ape-aes:1.0.0 ./run.sh $SSH_MASTER_USER`
-docker rm encrypt
-AES_SFTP_PASSWORD=`docker run --name encrypt ${REGISTRY_URL}/ape/ape-aes:1.0.0 ./run.sh $SSH_MASTER_PASS`
-docker rm encrypt
-
 # change encrypted values
 setupConfig() {
         echo "--------------------------------"
@@ -66,10 +54,52 @@ setupConfig() {
                 if [ "$?" -eq "0" ] ; then echo "> ${line} is Applied!" ; fi
         done < ".sftp_change_list"
 }
-setupConfig
 
+
+
+# ENCRYPT DB USERNAME PASSWORD
+AES_DB_USERNAME=`docker run --name encrypt ${REGISTRY_URL}/ape/ape-aes:1.0.0 ./run.sh $DB_USERNAME`
+docker rm encrypt
+AES_DB_PASSWORD=`docker run --name encrypt ${REGISTRY_URL}/ape/ape-aes:1.0.0 ./run.sh $DB_PASSWORD`
+docker rm encrypt
+
+# ENCRYPT SFTP USERNAME PASSWORD
+AES_SFTP_USERNAME=`docker run --name encrypt ${REGISTRY_URL}/ape/ape-aes:1.0.0 ./run.sh $SSH_MASTER_USER`
+docker rm encrypt
+AES_SFTP_PASSWORD=`docker run --name encrypt ${REGISTRY_URL}/ape/ape-aes:1.0.0 ./run.sh $SSH_MASTER_PASS`
+docker rm encrypt
+
+# ------------------------------------------------------------------------------------
+# download
+# MRMS
+mkdir -p ${BASE_DIR}/mrms
+cd ${BASE_DIR}/mrms
+wget https://raw.githubusercontent.com/seculayer/automl-mrms/main/conf/db.properties
+wget https://raw.githubusercontent.com/seculayer/automl-mrms/main/conf/log4j.properties
+wget https://raw.githubusercontent.com/seculayer/automl-mrms/main/conf/mrms-conf.xml
+cd ${BASE_DIR}
+
+# Data Analyzer - pubic 으로 repo 변경후 주석 제거
+#mkdir -p ${BASE_DIR}/da
+#cd ${BASE_DIR}/da
+#wget https://raw.githubusercontent.com/seculayer/automl-da/main/conf/da-conf.xml?token=AGDDYKRQACG4AZSLLM4I23DBOZB5A
+cd ${BASE_DIR}
+
+# -------------------------------------------------------------------------------
+# Change config
+setupConfig
+# -------------------------------------------------------------------------------
+# MRMS
+kubectl delete configmap/mrms-conf -n apeautoml
 kubectl create configmap mrms-conf \
   --from-file="${BASE_DIR}"/mrms/db.properties \
   --from-file="${BASE_DIR}"/mrms/log4j.properties \
   --from-file="${BASE_DIR}"/mrms/mrms-conf.xml \
   -n apeautoml
+# -------------------------------------------------------------------------------
+# Data Analyzer
+kubectl delete configmap/da-conf -n apeautoml
+kubectl create configmap mrms-conf \
+  --from-file="${BASE_DIR}"/da/da-conf.xml \
+  -n apeautoml
+# -------------------------------------------------------------------------------

@@ -1,6 +1,0 @@
-<configuration>
-    <property>
-        <name>conf.test</name>
-        <value>test</value>
-    </property>
-</configuration>
