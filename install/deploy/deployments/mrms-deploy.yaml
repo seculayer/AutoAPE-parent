@@ -28,7 +28,7 @@ spec:
   ports:
     - name: "ssh"
       port: 10022
-      targetPort: 22
+      targetPort: 9100
       nodePort: 30022
     - name: "mrms-servlet"
       port: 9200
@@ -78,7 +78,7 @@ spec:
         - name: mrms-sftp
           image: [@registry_url]/ape/sftp-server:1.0.0
           ports:
-            - containerPort: 22
+            - containerPort: 9100
           volumeMounts:
             - name: timezone-config
               mountPath: /etc/localtime

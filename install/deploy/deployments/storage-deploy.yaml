@@ -5,13 +5,14 @@ metadata:
   name: ape-storage-svc
   namespace: [@namespace]
 spec:
-  type: "LoadBalancer"
+  type: NodePort
   ports:
     - name: "ssh"
       port: 10122
-      targetPort: 22
+      targetPort: 9100
+      nodePort: 30122
   selector:
-    app: ape-web
+    app: ape-storage
 status:
   loadBalancer: {}
 ---
@@ -36,7 +37,7 @@ spec:
         - name: storage-sftp
           image: [@registry_url]/ape/sftp-server:1.0.0
           ports:
-          - containerPort: 22
+          - containerPort: 9100
           volumeMounts:
           - name: timezone-config
             mountPath: /etc/localtime
