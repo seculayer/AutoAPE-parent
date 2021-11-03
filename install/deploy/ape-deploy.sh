@@ -40,14 +40,18 @@ echo "database deploy...."
 kubectl create secret generic mariadb-user --from-literal=username=$DB_USERNAME \
   --from-literal=password=$DB_PASSWORD --namespace=$APEML_NAMESPACE
 
+cd database
+docker build -f ./Dockerfile -t $REGISTRY_URL/ape/ape-db:1.0.0 .
+docker push $REGISTRY_URL/ape/ape-db:1.0.0
+cd ../
 kubectl apply -f "${BASE_DIR}"/database/ml-db-deploy.yaml
 
 # database settings
-docker run --name db-client\
-  "$REGISTRY_URL"/ape/db-cient:1.0.0 \
-  mysql --host=10.1.35.118 --port=30306 --user=$DB_USERNAME --password=$DB_PASSWORD --database=APEAutoML \
-  < "${BASE_DIR}"/database/sql/VAR_FUNC_INFO.sql
-docker rm db-client
+#docker run --name db-client\
+#  "$REGISTRY_URL"/ape/db-cient:1.0.0 \
+#  mysql --host=10.1.35.118 --port=30306 --user=$DB_USERNAME --password=$DB_PASSWORD --database=APEAutoML \
+#  < "${BASE_DIR}"/database/sql/VAR_FUNC_INFO.sql
+#docker rm db-client
 
 
 ### delete database deployment

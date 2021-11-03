@@ -5,7 +5,7 @@ metadata:
   name: apeautoml-db
   labels:
     app: apeautoml-db
-  namespace: [@namespace]
+  namespace: apeautoml
 spec:
   replicas: 1
   selector:
@@ -19,7 +19,7 @@ spec:
       containers:
         - name: apeautoml-db
           #image: mariadb:10.5.2
-          image: testdb:1.0.0
+          image: registry.seculayer.com:31500/ape/ape-db:1.0.0
           ports:
             - containerPort: 3306
           volumeMounts:
@@ -50,7 +50,7 @@ spec:
       volumes:
         - name: db-data
           hostPath:
-            path: [@app_dir]/data/storage/db
+            path: /eyeCloudAI/data/storage/db
             type: Directory
         - name: timezone-config
           hostPath:
@@ -64,7 +64,7 @@ metadata:
   labels:
     app: apeautoml-db
   name:  apeautoml-db-svc
-  namespace: [@namespace]
+  namespace: apeautoml
 spec:
   type: NodePort
   selector:
