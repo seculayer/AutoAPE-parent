@@ -59,6 +59,16 @@ kubectl apply -f "${BASE_DIR}"/database/ml-db-deploy.yaml
 # kubectl delete -f "${BASE_DIR}"/database/ml-db-deploy.yaml
 # sudo rm -rf ${APP_DIR}/data/storage/db
 
+# ----
+# gpu share
+if [ "${GPU_USE}" = "true" ]
+then
+  kubectl apply -f ./gpushare/gpushare-schd-extender.yaml
+  kubectl apply -f ./gpushare/device-plugin-rabc.yaml
+  kubectl apply -f ./gpushare/device-plugin-ds.yaml
+  sudo cp ./gpushare/scheduler-policy-config.json /etc/kubernetes/scheduler-policy-config.json
+  sudo cp ./gpushare/kube-scheduler.yaml /etc/kubernetes/manifests/kube-scheduler.yaml
+fi
 # --------------------------------------------------------------------
 echo "apply configmaps"
 cd ./configmap || exit
