@@ -3,5 +3,5 @@
 |------|---|---|
 |Apps|/eyeCloudAI|default|
 |Data|/eyeCloudAI/data|-|
-|Data Aanlyzer Temp|/eyeCloudAI/data/processing/da/temp|-|
+|Data Analyzer Results|/eyeCloudAI/data/processing/ape/division|-|
 |MLPS Temp|/eyeCloudAI/data/processing/mlps/temp|-|
