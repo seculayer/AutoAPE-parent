@@ -1,5 +1,6 @@
 {
   "insecure-registries" : ["registry.seculayer.com:31500"],
+  "exec-opts": ["native.cgroupdriver=systemd"],
   "default-runtime": "nvidia",
   "data-root": "[@app_dir]/data/docker",
   "runtimes": {
