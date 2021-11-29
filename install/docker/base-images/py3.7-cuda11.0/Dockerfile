@@ -43,6 +43,6 @@ RUN cd /usr/src \
     && cd ../ \
     && rm -rf Python-3.7.7 \
     && rm -rf Python-3.7.7.tgz \
-    && mkdir -p /[@app_dir]
+    && mkdir -p /eyeCloudAI
 
-WORKDIR [@app_dir]
+WORKDIR /eyeCloudAI
