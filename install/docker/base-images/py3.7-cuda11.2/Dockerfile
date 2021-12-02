@@ -1,5 +1,10 @@
 FROM nvidia/cuda:11.2.0-cudnn8-devel-ubuntu18.04
 MAINTAINER jinkim "jinkim@seculayer.com"
+
+ARG APP_DIR=/eyeCloudAI
+ARG VERSION=3.7
+ARG FULL_VERSION=${VERSION}.7
+
 RUN sed -i 's@archive.ubuntu.com@mirror.kakao.com@g' /etc/apt/sources.list
 
 RUN apt-get -qq -y update && \
@@ -35,14 +40,16 @@ RUN apt-get -qq -y update && \
     rm -rf /var/lib/apt-get/lists/* \
 
 RUN cd /usr/src \
-    && wget https://www.python.org/ftp/python/3.7.7/Python-3.7.7.tgz \
-    && tar xzf Python-3.7.7.tgz \
-    && cd Python-3.7.7 \
+    && wget https://www.python.org/ftp/python/${FULL_VERSION}/Python-${FULL_VERSION}.tgz \
+    && tar xzf Python-${FULL_VERSION}.tgz \
+    && cd Python-${FULL_VERSION} \
     && ./configure --enable-optimizations \
     && make altinstall \
     && cd ../ \
-    && rm -rf Python-3.7.7 \
-    && rm -rf Python-3.7.7.tgz \
-    && mkdir -p /eyeCloudAI
+    && rm -rf Python-${FULL_VERSION} \
+    && rm -rf Python-${FULL_VERSION}.tgz \
+    && mkdir -p ${APP_DIR}
 
-WORKDIR /eyeCloudAI
+RUN python${VERSION} -m pip install --upgrade pip
+
+WORKDIR ${APP_DIR}
