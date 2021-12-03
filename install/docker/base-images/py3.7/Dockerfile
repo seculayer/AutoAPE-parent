@@ -1,7 +1,6 @@
 FROM ubuntu:18.04
 MAINTAINER jinkim "jinkim@seculayer.com"
 
-ARG APP_DIR=/eyeCloudAI
 ARG VERSION=3.7
 ARG FULL_VERSION=${VERSION}.7
 
@@ -47,9 +46,6 @@ RUN cd /usr/src \
     && make altinstall \
     && cd ../ \
     && rm -rf Python-${FULL_VERSION} \
-    && rm -rf Python-${FULL_VERSION}.tgz \
-    && mkdir -p $APP_DIR
+    && rm -rf Python-${FULL_VERSION}.tgz
 
 RUN python${VERSION} -m pip install --upgrade pip
-
-WORKDIR $APP_DIR

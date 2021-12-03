@@ -1,7 +1,6 @@
 FROM nvidia/cuda:11.2.0-cudnn8-devel-ubuntu18.04
 MAINTAINER jinkim "jinkim@seculayer.com"
 
-ARG APP_DIR=/eyeCloudAI
 ARG VERSION=3.7
 ARG FULL_VERSION=${VERSION}.7
 
@@ -37,7 +36,7 @@ RUN apt-get -qq -y update && \
     mv /usr/bin/lsb_release /usr/bin/lsb_release.bak && \
     apt-get -y autoclean && \
     apt-get -y autoremove && \
-    rm -rf /var/lib/apt-get/lists/* \
+    rm -rf /var/lib/apt-get/lists/*
 
 RUN cd /usr/src \
     && wget https://www.python.org/ftp/python/${FULL_VERSION}/Python-${FULL_VERSION}.tgz \
@@ -47,9 +46,6 @@ RUN cd /usr/src \
     && make altinstall \
     && cd ../ \
     && rm -rf Python-${FULL_VERSION} \
-    && rm -rf Python-${FULL_VERSION}.tgz \
-    && mkdir -p ${APP_DIR}
+    && rm -rf Python-${FULL_VERSION}.tgz
 
 RUN python${VERSION} -m pip install --upgrade pip
-
-WORKDIR ${APP_DIR}
