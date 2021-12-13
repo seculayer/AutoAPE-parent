@@ -126,7 +126,8 @@ CREATE TABLE `LEARN_HIST` (
   `issue_task_idx` varchar(1) DEFAULT NULL,
   `message` text DEFAULT NULL,
   `alg_anal_id` varchar(30) NOT NULL,
-  `dp_analysis_id` varchar(30) NOT NULL
+  `dp_analysis_id` varchar(30) NOT NULL,
+  `logs` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `ML_PARAM_INFO` */
