@@ -124,7 +124,6 @@ CREATE TABLE `LEARN_HIST` (
   `ml_score` varchar(10) DEFAULT NULL,
   `eps` varchar(32) DEFAULT NULL,
   `issue_task_idx` varchar(1) DEFAULT NULL,
-  `message` text DEFAULT NULL,
   `alg_anal_id` varchar(30) NOT NULL,
   `dp_analysis_id` varchar(30) NOT NULL,
   `logs` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL
