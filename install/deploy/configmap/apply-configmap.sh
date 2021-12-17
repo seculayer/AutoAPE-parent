@@ -75,7 +75,7 @@ docker rm encrypt
 mkdir -p ${BASE_DIR}/mrms
 cd ${BASE_DIR}/mrms
 wget https://raw.githubusercontent.com/seculayer/automl-mrms/main/conf/db.properties
-wget https://raw.githubusercontent.com/seculayer/automl-mrms/main/conf/log4j.properties
+wget https://raw.githubusercontent.com/seculayer/automl-mrms/main/conf/log4j2.properties
 wget https://raw.githubusercontent.com/seculayer/automl-mrms/main/conf/mrms-conf.xml
 cd ${BASE_DIR}
 
@@ -93,7 +93,7 @@ setupConfig
 kubectl delete configmap/mrms-conf -n apeautoml
 kubectl create configmap mrms-conf \
   --from-file="${BASE_DIR}"/mrms/db.properties \
-  --from-file="${BASE_DIR}"/mrms/log4j.properties \
+  --from-file="${BASE_DIR}"/mrms/log4j2.properties \
   --from-file="${BASE_DIR}"/mrms/mrms-conf.xml \
   -n apeautoml
 # -------------------------------------------------------------------------------
