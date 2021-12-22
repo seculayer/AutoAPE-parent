@@ -1,4 +1,4 @@
-# APE-Automatic Machine Learning Project
+# AutoAPE(Advanced Perceptron Engine) Project
 
 # Prepare
 ## Host Setting
