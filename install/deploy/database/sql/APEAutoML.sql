@@ -121,6 +121,7 @@ CREATE TABLE `LEARN_HIST` (
   `start_time` varchar(14) DEFAULT NULL,
   `end_time` varchar(14) DEFAULT NULL,
   `ml_result_json` text DEFAULT NULL,
+  `eval_result_json` text DEFAULT NULL,
   `ml_score` varchar(10) DEFAULT NULL,
   `eps` varchar(32) DEFAULT NULL,
   `issue_task_idx` varchar(1) DEFAULT NULL,
