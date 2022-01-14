@@ -130,6 +130,19 @@ CREATE TABLE `LEARN_HIST` (
   `logs` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Table structure for table `INFERENCE_HIST` */
+
+CREATE TABLE `INFERENCE_HIST` (
+  `infr_hist_no` varchar(30) NOT NULL,
+  `learn_hist_no` varchar(30) NOT NULL,
+  `infr_sttus_cd` varchar(2) NOT NULL,
+  `start_time` varchar(14) DEFAULT NULL,
+  `end_time` varchar(14) DEFAULT NULL,
+  `issue_task_idx` varchar(1) DEFAULT NULL,
+  `logs` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `target_field` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 /*Table structure for table `ML_PARAM_INFO` */
 
 CREATE TABLE `ML_PARAM_INFO` (
