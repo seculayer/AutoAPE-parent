@@ -140,7 +140,8 @@ CREATE TABLE `INFERENCE_HIST` (
   `end_time` varchar(14) DEFAULT NULL,
   `issue_task_idx` varchar(1) DEFAULT NULL,
   `logs` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `target_field` varchar(200) DEFAULT NULL
+  `target_field` varchar(200) DEFAULT NULL,
+  `data_analysis_id` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `ML_PARAM_INFO` */
