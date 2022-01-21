@@ -72,6 +72,8 @@ spec:
               mountPath: /etc/localtime
             - name: automl-processing
               mountPath: [@app_dir]/data/processing
+            - name: automl-storage
+              mountPath: [@app_dir]/data/storage/ape
             - name: mrms-conf-v
               mountPath: [@app_dir]/app/ape/mrms/conf
 
@@ -84,11 +86,16 @@ spec:
               mountPath: /etc/localtime
             - name: automl-processing
               mountPath: [@app_dir]/data/processing
+            - name: automl-storage
+              mountPath: [@app_dir]/data/storage/ape
 
       volumes:
         - name: automl-processing
           hostPath:
             path: [@app_dir]/data/processing
+        - name: automl-storage
+          hostPath:
+            path: [@app_dir]/data/storage/ape
         - name: timezone-config
           hostPath:
             path: /usr/share/zoneinfo/Asia/Seoul
