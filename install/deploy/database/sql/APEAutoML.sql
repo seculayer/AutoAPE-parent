@@ -127,7 +127,9 @@ CREATE TABLE `LEARN_HIST` (
   `issue_task_idx` varchar(1) DEFAULT NULL,
   `alg_anal_id` varchar(30) NOT NULL,
   `dp_analysis_id` varchar(30) NOT NULL,
-  `logs` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `logs` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `model_bookmark` char(1) DEFAULT 'N',
+  `model_alias` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `INFERENCE_HIST` */
