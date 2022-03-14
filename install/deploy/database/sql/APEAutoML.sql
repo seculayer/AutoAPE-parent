@@ -146,6 +146,19 @@ CREATE TABLE `INFERENCE_HIST` (
   `data_analysis_id` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Table structure for table `XAI_HIST` */
+
+CREATE TABLE `XAI_HIST` (
+  `xai_hist_no` varchar(30) NOT NULL,
+  `infr_hist_no` varchar(30) NOT NULL,
+  `xai_sttus_cd` varchar(2) NOT NULL,
+  `start_time` varchar(14) DEFAULT NULL,
+  `end_time` varchar(14) DEFAULT NULL,
+  `logs` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `target_field` varchar(200) DEFAULT NULL,
+  `data_analysis_id` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 /*Table structure for table `ML_PARAM_INFO` */
 
 CREATE TABLE `ML_PARAM_INFO` (
