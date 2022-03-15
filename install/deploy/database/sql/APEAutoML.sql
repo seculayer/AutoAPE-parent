@@ -151,6 +151,7 @@ CREATE TABLE `INFERENCE_HIST` (
 CREATE TABLE `XAI_HIST` (
   `xai_hist_no` varchar(30) NOT NULL,
   `infr_hist_no` varchar(30) NOT NULL,
+  `learn_hist_no` varchar(30) NOT NULL,
   `xai_sttus_cd` varchar(2) NOT NULL,
   `start_time` varchar(14) DEFAULT NULL,
   `end_time` varchar(14) DEFAULT NULL,
