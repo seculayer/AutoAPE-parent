@@ -143,7 +143,9 @@ CREATE TABLE `INFERENCE_HIST` (
   `issue_task_idx` varchar(1) DEFAULT NULL,
   `logs` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `target_field` varchar(200) DEFAULT NULL,
-  `data_analysis_id` varchar(30) NOT NULL
+  `data_analysis_id` varchar(30) NOT NULL,
+  `infr_accuracy` VARCHAR(10) NOT NULL DEFAULT '0',
+  `infr_f1score` VARCHAR(10) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `XAI_HIST` */
