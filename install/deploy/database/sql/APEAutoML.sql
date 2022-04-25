@@ -84,6 +84,17 @@ CREATE TABLE `DP_ANLS_INFO` (
   `project_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Table structure for table `EDA_INFO` */
+
+CREATE TABLE `EDA_INFO` (
+  `eda_id` varchar(30) NOT NULL,
+  `status` varchar(2) NOT NULL DEFAULT '1',
+  `selection_field` longtext,
+  `pca_yn` varchar(1) NOT NULL DEFAULT 'N',
+  `dp_analysis_id` varchar(30) NOT NULL,
+  `project_id` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 /*Table structure for table `FIELD_CONV_INFO` */
 
 CREATE TABLE `FIELD_CONV_INFO` (
