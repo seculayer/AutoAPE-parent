@@ -21,13 +21,13 @@ docker build -f ./java11/Dockerfile -t $REGISTRY_URL/ape/java-base:$JAVA_VER ./j
 docker push $REGISTRY_URL/ape/java-base:$JAVA_VER
 
 # python3.7
-docker build -f ./py3.7/Dockerfile -t $REGISTRY_URL/ape/python-base:$PYTHON_VER ./py3.7
+docker build -f ./py3.7-cv2/Dockerfile -t $REGISTRY_URL/ape/python-base:$PYTHON_VER ./py3.7-cv2
 docker push $REGISTRY_URL/ape/python-base:$PYTHON_VER
 
 # python3.7 with CUDA & cuDNN
 if [ "${GPU_USE}" == "true" ]
 then
-  docker build -f ./py3.7-cuda11.2/Dockerfile -t $REGISTRY_URL/ape/python-base-gpu:$PYTHON_VER ./py3.7-cuda11.2
+  docker build -f ./py3.7-cuda11.2-cv2/Dockerfile -t $REGISTRY_URL/ape/python-base-gpu:$PYTHON_VER ./py3.7-cuda11.2-cv2
   docker push $REGISTRY_URL/ape/python-base-gpu:$PYTHON_VER
 fi
 
