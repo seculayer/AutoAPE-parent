@@ -10,7 +10,10 @@ echo "**************************************************************************
 # Configuration load
 source ./conf/ape.conf
 
-sudo mkdir -p $APP_DIR
+
+sudo mkdir -p /home$APP_DIR
+sudo chown -R 1000:1000 /home$APP_DIR
+sudo ln -s /home$APP_DIR $APP_DIR
 sudo chown -R 1000:1000 $APP_DIR
 
 echo "#####"
@@ -91,6 +94,7 @@ echo "##### Install Kubernetes"
 echo "#####"
 sudo yum install -y kubelet-"${KUBE_VERSION}" kubeadm-"${KUBE_VERSION}" kubectl-"${KUBE_VERSION}" --disableexcludes=kubernetes
 
+sudo chown -R "${USER}":"${USER}" "${APP_DIR}/data"
 sudo usermod -aG docker "${USER}"
 sudo chmod 666 /var/run/docker.sock
 

@@ -72,12 +72,17 @@ docker rm encrypt
 # ------------------------------------------------------------------------------------
 # download
 # MRMS
-mkdir -p ${BASE_DIR}/mrms
-cd ${BASE_DIR}/mrms
-wget https://raw.githubusercontent.com/seculayer/automl-mrms/main/conf/db.properties
-wget https://raw.githubusercontent.com/seculayer/automl-mrms/main/conf/log4j2.properties
-wget https://raw.githubusercontent.com/seculayer/automl-mrms/main/conf/mrms-conf.xml
-cd ${BASE_DIR}
+if [ "${IS_PRIVATE_NETWORK}" = "true" ]
+then
+  echo "Private Network Mode"
+else
+  mkdir -p ${BASE_DIR}/mrms
+  cd ${BASE_DIR}/mrms
+  wget https://raw.githubusercontent.com/seculayer/automl-mrms/main/conf/db.properties
+  wget https://raw.githubusercontent.com/seculayer/automl-mrms/main/conf/log4j2.properties
+  wget https://raw.githubusercontent.com/seculayer/automl-mrms/main/conf/mrms-conf.xml
+  cd ${BASE_DIR}
+fi
 
 # Data Analyzer - pubic 으로 repo 변경후 주석 제거
 #mkdir -p ${BASE_DIR}/da
@@ -99,7 +104,7 @@ kubectl create configmap mrms-conf \
 # -------------------------------------------------------------------------------
 # Data Analyzer
 kubectl delete configmap/da-conf -n apeautoml
-kubectl create configmap mrms-conf \
+kubectl create configmap da-conf \
   --from-file="${BASE_DIR}"/da/da-conf.xml \
   -n apeautoml
 # -------------------------------------------------------------------------------

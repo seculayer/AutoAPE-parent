@@ -64,7 +64,7 @@ kubectl apply -f "${BASE_DIR}"/database/ml-db-deploy.yaml
 if [ "${GPU_USE}" = "true" ]
 then
   kubectl apply -f ./gpushare/gpushare-schd-extender.yaml
-  kubectl apply -f ./gpushare/device-plugin-rabc.yaml
+  kubectl apply -f ./gpushare/device-plugin-rbac.yaml
   kubectl apply -f ./gpushare/device-plugin-ds.yaml
   sudo cp ./gpushare/scheduler-policy-config.json /etc/kubernetes/scheduler-policy-config.json
   sudo cp ./gpushare/kube-scheduler.yaml /etc/kubernetes/manifests/kube-scheduler.yaml
