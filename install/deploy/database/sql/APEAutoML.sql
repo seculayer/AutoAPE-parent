@@ -152,6 +152,7 @@ CREATE TABLE `INFERENCE_HIST` (
   `start_time` varchar(14) DEFAULT NULL,
   `end_time` varchar(14) DEFAULT NULL,
   `issue_task_idx` varchar(1) DEFAULT NULL,
+  `xai_create_yn` char(1) DEFAULT 'N',
   `logs` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `target_field` varchar(200) DEFAULT NULL,
   `data_analysis_id` varchar(30) NOT NULL,
