@@ -55,6 +55,10 @@ INSERT INTO VAR_FUNC_INFO VALUES('55', 'XXESpWC', 'XXESpWC', '52', '[[@xxespwc()
 INSERT INTO VAR_FUNC_INFO VALUES('56', 'BOSpWC', 'BOSpWC', '53', '[[@bospwc()]]', '2', '- Buffer Overflow 공격에 사용되는 특수문자와 사용자정의 문자 기준으로 추출하는 기능<br />- parameter_1: Max Length<br />- parameter_2: Padding Values(integer)', 'admin', '202110011306', 'N');
 INSERT INTO VAR_FUNC_INFO VALUES('57', 'CFSpWC', 'CFSpWC', '54', '[[@cfspwc()]]', '2', '- Cross-Site Request Forgery 공격에 사용되는 특수문자와 사용자정의 문자 기준으로 추출하는 기능<br />- parameter_1: Max Length<br />- parameter_2: Padding Values(integer)', 'admin', '202110011306', 'N');
 
+# 2022.11.03 DGA
+INSERT INTO VAR_FUNC_INFO VALUES('58', 'DGAChar2IDX', 'DGAChar2IDX', '55', '[[@dga_char2idx()]]', '0', 'DGA Char2IDX', 'admin', '202211031700', 'N');
+
+
 INSERT INTO ALGORITHM_INFO (alg_id, alg_nm, alg_type, algorithm_code, alg_ver, alg_cont, proc_id, proc_dt, lib_type, dist_yn, user_made_yn) VALUES('10000000000000001','TF-GPRM','10','TFGPRMV2','1.0','Tensorflow v2 Gaussian Process Regressor Model.','admin','202206211633','1','N','N');
 INSERT INTO ALGORITHM_INFO (alg_id, alg_nm, alg_type, algorithm_code, alg_ver, alg_cont, proc_id, proc_dt, lib_type, dist_yn, user_made_yn) VALUES('20000000000000001','K-DNN','1,2','KDNN','1.0','Keras Deep Neural Network','admin','201905200900','2','Y','N');
 INSERT INTO ALGORITHM_INFO (alg_id, alg_nm, alg_type, algorithm_code, alg_ver, alg_cont, proc_id, proc_dt, lib_type, dist_yn, user_made_yn) VALUES('20000000000000002','K-CNN','1,2','KCNN','1.0','Keras Convolutional Neural Network','admin','201905200900','2','Y','N');
