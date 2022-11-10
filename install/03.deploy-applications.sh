@@ -16,8 +16,6 @@ fi
 ##########################################################################
 source "${BASE_DIR}"/conf/ape.conf
 
-
-
 ##########################################################################
 # label setting
 kubectl label nodes `echo $MASTER_HOSTNAME | tr '[A-Z]' '[a-z]'` deploy=true

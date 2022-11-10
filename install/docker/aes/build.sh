@@ -17,5 +17,8 @@ fi
 
 source "${BASE_DIR}"/../../conf/ape.conf
 
-docker build -f ./Dockerfile -t $REGISTRY_URL/ape/ape-aes:1.0.0 .
+if [ "${IS_PRIVATE_NETWORK}" = "false" ]
+then
+  docker build -f ./Dockerfile -t $REGISTRY_URL/ape/ape-aes:1.0.0 .
+fi
 docker push $REGISTRY_URL/ape/ape-aes:1.0.0

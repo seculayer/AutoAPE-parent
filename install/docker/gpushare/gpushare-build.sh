@@ -17,9 +17,15 @@ fi
 source "${BASE_DIR}"/../../conf/ape.conf
 
 ### device plugin
-docker build -t "${REGISTRY_URL}"/ape/gpu-device-plugin:1.0.0 ./gpushare-device-plugin
+if [ "${IS_PRIVATE_NETWORK}" = "false" ]
+then
+  docker build -t "${REGISTRY_URL}"/ape/gpu-device-plugin:1.0.0 ./gpushare-device-plugin
+fi
 docker push "${REGISTRY_URL}"/ape/gpu-device-plugin:1.0.0
 
 ### scheduler
-docker build -t "${REGISTRY_URL}"/ape/gpu-schd-ext:1.0.0 ./gpushare-scheduler-extender
+if [ "${IS_PRIVATE_NETWORK}" = "false" ]
+then
+  docker build -t "${REGISTRY_URL}"/ape/gpu-schd-ext:1.0.0 ./gpushare-scheduler-extender
+fi
 docker push "${REGISTRY_URL}"/ape/gpu-schd-ext:1.0.0

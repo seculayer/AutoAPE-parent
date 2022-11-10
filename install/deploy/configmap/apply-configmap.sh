@@ -72,10 +72,17 @@ docker rm encrypt
 # ------------------------------------------------------------------------------------
 # download
 # MRMS
-if [ "${IS_PRIVATE_NETWORK}" = "true" ]
+if [ "${IS_PRIVATE_NETWORK}" = "true" && "${IS_MRMS_INSTALL}" = "true" ]
 then
-  echo "Private Network Mode"
-else
+  # MRMS
+  kubectl delete configmap/mrms-conf -n apeautoml
+  kubectl create configmap mrms-conf \
+    --from-file="${BASE_DIR}"/mrms/db.properties \
+    --from-file="${BASE_DIR}"/mrms/log4j2.properties \
+    --from-file="${BASE_DIR}"/mrms/mrms-conf.xml \
+    -n apeautoml
+elif [ "${IS_PRIVATE_NETWORK}" = "false" && "${IS_MRMS_INSTALL}" = "true" ]
+then
   mkdir -p ${BASE_DIR}/mrms
   cd ${BASE_DIR}/mrms
   wget https://raw.githubusercontent.com/seculayer/automl-mrms/main/conf/db.properties
@@ -94,17 +101,20 @@ cd ${BASE_DIR}
 # Change config
 setupConfig
 # -------------------------------------------------------------------------------
-# MRMS
-kubectl delete configmap/mrms-conf -n apeautoml
-kubectl create configmap mrms-conf \
-  --from-file="${BASE_DIR}"/mrms/db.properties \
-  --from-file="${BASE_DIR}"/mrms/log4j2.properties \
-  --from-file="${BASE_DIR}"/mrms/mrms-conf.xml \
+if [ "${IS_MIMS_INSTALL}" = "true" ]
+then
+# MIMS
+kubectl delete configmap/mims-conf -n apeautoml
+kubectl create configmap mims-conf \
+  --from-file="${BASE_DIR}"/mims/db.properties \
+  --from-file="${BASE_DIR}"/mims/log4j2.properties \
+  --from-file="${BASE_DIR}"/mims/mims-conf.xml \
   -n apeautoml
-# -------------------------------------------------------------------------------
-# Data Analyzer
-kubectl delete configmap/da-conf -n apeautoml
-kubectl create configmap da-conf \
-  --from-file="${BASE_DIR}"/da/da-conf.xml \
-  -n apeautoml
+fi
+## -------------------------------------------------------------------------------
+## Data Analyzer
+#kubectl delete configmap/da-conf -n apeautoml
+#kubectl create configmap da-conf \
+#  --from-file="${BASE_DIR}"/da/da-conf.xml \
+#  -n apeautoml
 # -------------------------------------------------------------------------------

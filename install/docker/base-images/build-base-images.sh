@@ -17,20 +17,32 @@ fi
 source "${BASE_DIR}"/../../conf/ape.conf
 
 # JAVA 11 base image
-docker build -f ./java11/Dockerfile -t $REGISTRY_URL/ape/java-base:$JAVA_VER ./java11
+if [ "${IS_PRIVATE_NETWORK}" = "false" ]
+then
+  docker build -f ./java11/Dockerfile -t $REGISTRY_URL/ape/java-base:$JAVA_VER ./java11
+fi
 docker push $REGISTRY_URL/ape/java-base:$JAVA_VER
 
 # python3.7
-docker build -f ./py3.7-cv2/Dockerfile -t $REGISTRY_URL/ape/python-base:$PYTHON_VER ./py3.7-cv2
+if [ "${IS_PRIVATE_NETWORK}" = "false" ]
+then
+  docker build -f ./py3.7-cv2/Dockerfile -t $REGISTRY_URL/ape/python-base:$PYTHON_VER ./py3.7-cv2
+fi
 docker push $REGISTRY_URL/ape/python-base:$PYTHON_VER
 
 # python3.7 with CUDA & cuDNN
 if [ "${GPU_USE}" == "true" ]
 then
-  docker build -f ./py3.7-cuda11.2-cv2/Dockerfile -t $REGISTRY_URL/ape/python-base-gpu:$PYTHON_VER ./py3.7-cuda11.2-cv2
+  if [ "${IS_PRIVATE_NETWORK}" = "false" ]
+  then
+    docker build -f ./py3.7-cuda11.2-cv2/Dockerfile -t $REGISTRY_URL/ape/python-base-gpu:$PYTHON_VER ./py3.7-cuda11.2-cv2
+  fi
   docker push $REGISTRY_URL/ape/python-base-gpu:$PYTHON_VER
 fi
 
 # DB client
-docker build -f ./db-client/Dockerfile -t $REGISTRY_URL/ape/db-client:1.0.0 ./db-client
+if [ "${IS_PRIVATE_NETWORK}" = "false" ]
+then
+  docker build -f ./db-client/Dockerfile -t $REGISTRY_URL/ape/db-client:1.0.0 ./db-client
+fi
 docker push $REGISTRY_URL/ape/db-client:1.0.0

@@ -13,6 +13,7 @@ setupNamespaceConfig() {
         sed -i "s/${escape_old}/${escape_new}/g" ./deploy/database/ml-db-deploy.yaml
         sed -i "s/${escape_old}/${escape_new}/g" ./deploy/docker-registry/registry-deploy.yaml
         sed -i "s/${escape_old}/${escape_new}/g" ./deploy/deployments/mrms-deploy.yaml
+        sed -i "s/${escape_old}/${escape_new}/g" ./deploy/deployments/mims-deploy.yaml
         sed -i "s/${escape_old}/${escape_new}/g" ./deploy/deployments/storage-deploy.yaml
 }
 setupAppPathConfig(){
@@ -27,6 +28,7 @@ setupAppPathConfig(){
         sed -i "s/${escape_old}/${escape_new}/g" ./deploy/database/ml-db-deploy.yaml
         sed -i "s/${escape_old}/${escape_new}/g" ./deploy/docker-registry/registry-deploy.yaml
         sed -i "s/${escape_old}/${escape_new}/g" ./deploy/deployments/mrms-deploy.yaml
+        sed -i "s/${escape_old}/${escape_new}/g" ./deploy/deployments/mims-deploy.yaml
         sed -i "s/${escape_old}/${escape_new}/g" ./deploy/deployments/storage-deploy.yaml
         sed -i "s/${escape_old}/${escape_new}/g" ./docker/base-images/java11/Dockerfile
         sed -i "s/${escape_old}/${escape_new}/g" ./docker/base-images/py3.7-cv2/Dockerfile
@@ -41,6 +43,7 @@ setupRegistryURLConfig() {
         escape_old=$(printf '%s\n' "${OLD_REGISTRY_URL}" | sed -e 's/[]\/$*.^[]/\\&/g')
         escape_new=$(printf '%s\n' "${REGISTRY_URL}" | sed -e 's/[]\/$*.^[]/\\&/g')
         sed -i "s/${escape_old}/${escape_new}/g" ./deploy/deployments/mrms-deploy.yaml
+        sed -i "s/${escape_old}/${escape_new}/g" ./deploy/deployments/mims-deploy.yaml
         sed -i "s/${escape_old}/${escape_new}/g" ./deploy/deployments/storage-deploy.yaml
 }
 

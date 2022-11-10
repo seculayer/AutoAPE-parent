@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl"  href="configuration.xsl"?>
+<configuration>
+    <property>
+        <name>ape.job.dir</name>
+        <value>/eyeCloudAI/data/processing/ape/jobs</value>
+    </property>
+    <property>
+        <name>ape.da.dir</name>
+        <value>/eyeCloudAI/data/processing/ape/da</value>
+    </property>
+    <property>
+        <name>ape.model.dir</name>
+        <value>/eyeCloudAI/data/storage/ape</value>
+    </property>
+    <property>
+        <name>kubernetes.log.debug.yn</name>
+        <value>N</value>
+    </property>
+    <property>
+      <name>use.detect.schedule</name>
+      <value>true</value>
+    </property>
+    <property>
+        <name>kube.pod.cpu.limit</name>
+        <value>1200</value>
+        <description>m</description>
+    </property>
+    <property>
+        <name>kube.pod.memory.limit</name>
+        <value>0</value>
+        <description>Gi</description>
+    </property>
+    <property>
+        <name>gpu.mem.unit</name>
+        <value>MiB</value>
+        <description>MiB or GiB</description>
+    </property>
+    <property>
+        <name>gpu.mem.limit.inference</name>
+        <value>1169</value>
+        <description>Integer(MiB or GiB)</description>
+    </property>
+    <property>
+        <name>remove_ttl_time</name>
+        <value>60</value>
+        <description>seconds(integer)</description>
+    </property>
+    <property>
+      <name>jobfile.remove.boolean</name>
+      <value>false</value>
+      <description>true/false</description>
+    </property>
+    <property>
+        <name>static.num.replica.yn</name>
+        <value>N</value>
+        <description>using static replica cnt? Y or N</description>
+    </property>
+    <property>
+        <name>static.replica.cnt</name>
+        <value>2</value>
+        <description>if [static.num.replica.yn] value is 'Y', How many cnt you want? else value is 'N', it doesn't matter</description>
+    </property>
+</configuration>

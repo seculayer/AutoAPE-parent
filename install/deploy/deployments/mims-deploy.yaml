@@ -1,0 +1,107 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: mims-user
+  namespace: [@namespace]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: mims-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: mims-user
+    namespace: [@namespace]
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mims-svc
+  namespace: [@namespace]
+spec:
+  type: NodePort
+  ports:
+    - name: "ssh"
+      port: 10022
+      targetPort: 9100
+      nodePort: 30022
+    - name: "mims-servlet"
+      port: 9200
+      targetPort: 9200
+      nodePort: 31920
+  selector:
+    app: mims
+status:
+  loadBalancer: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mims
+  labels:
+    app: mims
+  namespace: [@namespace]
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mims
+  template:
+    metadata:
+      labels:
+        app: mims
+    spec:
+      serviceAccountName: mims-user
+      containers:
+        - name: mims
+          image: [@registry_url]/ape/automl-mims:1.0.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9200
+          command: ["/bin/bash", "./mims.sh"]
+          env:
+            - name: TZ
+              value: Asia/Seoul
+          volumeMounts:
+            - name: timezone-config
+              mountPath: /etc/localtime
+            - name: automl-processing
+              mountPath: [@app_dir]/data/processing
+            - name: automl-storage
+              mountPath: [@app_dir]/data/storage/ape
+            - name: mims-conf-v
+              mountPath: [@app_dir]/app/ape/mims/conf
+
+        - name: mims-sftp
+          image: [@registry_url]/ape/sftp-server:1.0.0
+          ports:
+            - containerPort: 9100
+          volumeMounts:
+            - name: timezone-config
+              mountPath: /etc/localtime
+            - name: automl-processing
+              mountPath: [@app_dir]/data/processing
+            - name: automl-storage
+              mountPath: [@app_dir]/data/storage/ape
+
+      volumes:
+        - name: automl-processing
+          hostPath:
+            path: [@app_dir]/data/processing
+        - name: automl-storage
+          hostPath:
+            path: [@app_dir]/data/storage/ape
+        - name: timezone-config
+          hostPath:
+            path: /usr/share/zoneinfo/Asia/Seoul
+        - name: mims-conf-v
+          configMap:
+            name: mims-conf
+      nodeSelector:
+        app: "true"
+---

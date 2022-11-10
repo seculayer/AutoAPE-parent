@@ -41,7 +41,10 @@ kubectl create secret generic mariadb-user --from-literal=username=$DB_USERNAME 
   --from-literal=password=$DB_PASSWORD --namespace=$APEML_NAMESPACE
 
 cd database
-docker build -f ./Dockerfile -t $REGISTRY_URL/ape/ape-db:1.0.0 .
+if [ "${IS_PRIVATE_NETWORK}" = "false" ]
+then
+  docker build -f ./Dockerfile -t $REGISTRY_URL/ape/ape-db:1.0.0 .
+fi
 docker push $REGISTRY_URL/ape/ape-db:1.0.0
 cd ../
 kubectl apply -f "${BASE_DIR}"/database/ml-db-deploy.yaml
@@ -78,5 +81,12 @@ cd ../
 # --------------------------------------------------------------------
 echo "apply deployments"
 
-kubectl apply -f $BASE_DIR/deployments/mrms-deploy.yaml
+if [ "${IS_MIMS_INSTALL}" = "true" ]
+then
+  kubectl apply -f $BASE_DIR/deployments/mims-deploy.yaml
+fi
+if [ "${IS_MRMS_INSTALL}" = "true" ]
+then
+  kubectl apply -f $BASE_DIR/deployments/mrms-deploy.yaml
+fi
 kubectl apply -f $BASE_DIR/deployments/storage-deploy.yaml

@@ -16,6 +16,13 @@ fi
 ##########################################################################
 source "${BASE_DIR}"/conf/ape.conf
 
+if [ "${IS_PRIVATE_NETWORK}" = "true" ]
+then
+  cd "${BASE_DIR}"/../images
+  chmod +x import_base.sh
+  ./import_base.sh
+  cd "${BASE_DIR}"
+fi
 
 ###########################################################################
 # init kubernetes master server

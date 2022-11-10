@@ -140,7 +140,8 @@ CREATE TABLE `LEARN_HIST` (
   `dp_analysis_id` varchar(30) NOT NULL,
   `logs` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `model_bookmark` char(1) DEFAULT 'N',
-  `model_alias` varchar(100) DEFAULT NULL
+  `model_alias` varchar(100) DEFAULT NULL,
+  `select_yn` char(1) DEFAULT 'N'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `INFERENCE_HIST` */
@@ -195,7 +196,9 @@ CREATE TABLE `PROJECT_INFO` (
   `status` varchar(2) NOT NULL,
   `start_time` varchar(14) NOT NULL,
   `end_time` varchar(14) DEFAULT NULL,
-  `project_target_field` varchar(200) DEFAULT NULL
+  `project_target_field` varchar(200) DEFAULT NULL,
+  `modeling_mode` char(2) DEFAULT '1',
+  `early_stop_param` longtext DEFAULT '{}'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `VAR_FUNC_INFO` */
@@ -211,4 +214,30 @@ CREATE TABLE `VAR_FUNC_INFO` (
   `proc_id` varchar(10) DEFAULT NULL,
   `proc_dt` varchar(14) DEFAULT NULL,
   `user_made_yn` varchar(1) NOT NULL DEFAULT 'N'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Table structure for table `DETECT_HIST` */
+
+CREATE TABLE `DETECT_HIST` (
+  `detect_hist_no` varchar(30) NOT NULL,
+  `learn_hist_no` varchar(30) NOT NULL,
+  `detect_status_cd` varchar(2) NOT NULL,
+  `start_time` varchar(14) DEFAULT NULL,
+  `end_time` varchar(14) DEFAULT NULL,
+  `use_yn` char(1) DEFAULT 'N',
+  `result_fields` varchar(150) DEFAULT '',
+  `input_folder_path` longtext DEFAULT '',
+  `output_folder_path` longtext DEFAULT '',
+  `num_replicas` int DEFAULT 2
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Table structure for table `DETECT_HIST` */
+
+CREATE TABLE `MODEL_INFO` (
+  `learn_hist_no` varchar(30) NOT NULL,
+  `gpu_use` char(1) DEFAULT 'N',
+  `algorithm_json` longtext DEFAULT NULL,
+  `dataset_format` varchar(30) DEFAULT NULL,
+  `dataset_json` longtext DEFAULT NULL,
+  `project_target_field` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

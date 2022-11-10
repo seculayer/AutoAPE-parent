@@ -10,11 +10,10 @@ echo "**************************************************************************
 # Configuration load
 source ./conf/ape.conf
 
-
-sudo mkdir -p /home$APP_DIR
-sudo chown -R 1000:1000 /home$APP_DIR
-sudo ln -s /home$APP_DIR $APP_DIR
-sudo chown -R 1000:1000 $APP_DIR
+#sudo mkdir -p /home$APP_DIR
+#sudo chown -R 1000:1000 /home$APP_DIR
+#sudo ln -s /home$APP_DIR $APP_DIR
+#sudo chown -R 1000:1000 $APP_DIR
 
 echo "#####"
 echo "##### Remove regacy docker / kubernetes"
@@ -25,20 +24,21 @@ sudo yum remove -y kubelet kubeadm kubectl
 echo "#####"
 echo "##### Check the firewall"
 echo "#####"
-count=$(systemctl status firewalld | grep dead | wc -l)
-if(( "${count}" == 0 ));
-then
+#count=$(systemctl status firewalld | grep dead | wc -l)
+#if(( "${count}" == 0 ));
+#then
 	sudo systemctl stop firewalld
-else
-  echo "firewalld가 다운되어 있습니다."
-fi
+#else
+#  echo "firewalld가 다운되어 있습니다."
+#fi
 
 echo "#####"
 echo "##### Check the Selinux"
 echo "#####"
 
 sudo setenforce 0
-sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+sudo sed -i 's/^SELINUX=enforcing$/SELINUX=disabled$/' /etc/selinux/config
+sudo sed -i 's/^SELINUX=permissive/SELINUX=disabled$/' /etc/selinux/config
 
 echo "#####"
 echo "##### swap off"
@@ -49,7 +49,7 @@ sudo sed -ri '/\sswap\s/s/^#?/#/' /etc/fstab
 echo "#####"
 echo "##### Install required packages"
 echo "#####"
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2 sshpass net-tools
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2 sshpass net-tools iproute-tc
 
 sudo cp ./conf/k8s.conf /etc/sysctl.d/
 sudo sysctl --system
@@ -57,7 +57,8 @@ sudo sysctl --system
 echo "#####"
 echo "##### Install Docker"
 echo "#####"
-sudo yum-config-manager --add-repo ./conf/docker-ce.repo
+#sudo yum-config-manager --add-repo ./conf/docker-ce.repo
+sudo yum install -y /usr/local/eyecloudai-v202109.repo.d/container-selinux-2.189.0-1.module+el8.6.0+20857+bf01bdf2.noarch.rpm
 sudo yum install -y docker-ce-"${DOCKER_VERSION}"
 
 sudo mkdir /etc/docker
@@ -65,7 +66,7 @@ sudo mkdir /etc/docker
 ### GPU Support
 if [ "${GPU_USE}" = "true" ]
 then
-  sudo cp ./conf/nvidia-docker.repo /etc/yum.repos.d/
+#  sudo cp ./conf/nvidia-docker.repo /etc/yum.repos.d/
   sudo yum install -y nvidia-docker2
   sudo pkill -SIGHUP dockerd
   sudo cp ./conf/daemon-gpu.json /etc/docker/daemon.json
@@ -73,11 +74,6 @@ else
   sudo cp ./conf/daemon.json /etc/docker/daemon.json
 
 fi
-OLD_PATH="[@app_dir]"
-escape_old=$(printf '%s\n' "${OLD_PATH}" | sed -e 's/[]\/$*.^[]/\\&/g')
-escape_new=$(printf '%s\n' "${APP_DIR}" | sed -e 's/[]\/$*.^[]/\\&/g')
-
-sudo sed -i "s/${escape_old}/${escape_new}/g" /etc/docker/daemon.json
 
 sudo systemctl daemon-reload
 sudo systemctl restart docker
@@ -85,9 +81,9 @@ sudo systemctl restart docker
 echo "#####"
 echo "##### Add RPM Repository"
 echo "#####"
-sudo cp ./conf/kubebyinternet.repo /etc/yum.repos.d/
-sudo yum clean -y all
-sudo yum repolist -y all
+#sudo cp ./conf/kubebyinternet.repo /etc/yum.repos.d/
+#sudo yum clean -y all
+#sudo yum repolist -y all
 
 echo "#####"
 echo "##### Install Kubernetes"

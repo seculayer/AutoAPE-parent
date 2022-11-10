@@ -17,7 +17,7 @@ spec:
     - --kubeconfig=/etc/kubernetes/scheduler.conf
     - --policy-config-file=/etc/kubernetes/scheduler-policy-config.json
     - --leader-elect=true
-    image: k8s.gcr.io/kube-scheduler:v1.17.17
+    image: k8s.gcr.io/kube-scheduler:v1.22.4
     imagePullPolicy: IfNotPresent
     livenessProbe:
       failureThreshold: 8
