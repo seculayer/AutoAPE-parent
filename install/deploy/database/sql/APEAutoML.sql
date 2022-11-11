@@ -198,7 +198,8 @@ CREATE TABLE `PROJECT_INFO` (
   `end_time` varchar(14) DEFAULT NULL,
   `project_target_field` varchar(200) DEFAULT NULL,
   `modeling_mode` char(2) DEFAULT '1',
-  `early_stop_param` longtext DEFAULT '{}'
+  `early_stop_param` longtext DEFAULT '{}',
+  `tag` longtext DEFAULT '[]';
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `VAR_FUNC_INFO` */
