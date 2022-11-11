@@ -60,6 +60,7 @@ INSERT INTO VAR_FUNC_INFO VALUES('58', 'DGAChar2IDX', 'DGAChar2IDX', '55', '[[@d
 
 
 INSERT INTO ALGORITHM_INFO (alg_id, alg_nm, alg_type, algorithm_code, alg_ver, alg_cont, proc_id, proc_dt, lib_type, dist_yn, user_made_yn) VALUES('10000000000000001','TF-GPRM','10','TFGPRMV2','1.0','Tensorflow v2 Gaussian Process Regressor Model.','admin','202206211633','1','N','N');
+INSERT INTO ALGORITHM_INFO (alg_id, alg_nm, alg_type, algorithm_code, alg_ver, alg_cont, proc_id, proc_dt, lib_type, dist_yn, user_made_yn) VALUES('10000000000000002','TF-XGBoost','1','XGBoost','1.0','XGBoost Model.','admin','202211111633','1','N','N');
 INSERT INTO ALGORITHM_INFO (alg_id, alg_nm, alg_type, algorithm_code, alg_ver, alg_cont, proc_id, proc_dt, lib_type, dist_yn, user_made_yn) VALUES('20000000000000001','K-DNN','1,2','KDNN','1.0','Keras Deep Neural Network','admin','201905200900','2','Y','N');
 INSERT INTO ALGORITHM_INFO (alg_id, alg_nm, alg_type, algorithm_code, alg_ver, alg_cont, proc_id, proc_dt, lib_type, dist_yn, user_made_yn) VALUES('20000000000000002','K-CNN','1,2','KCNN','1.0','Keras Convolutional Neural Network','admin','201905200900','2','Y','N');
 INSERT INTO ALGORITHM_INFO (alg_id, alg_nm, alg_type, algorithm_code, alg_ver, alg_cont, proc_id, proc_dt, lib_type, dist_yn, user_made_yn) VALUES('20000000000000003','K-RNN','1,2','KRNN','1.0','Keras Recurrent Neural Network','admin','201905200900','2','Y','N');
@@ -89,6 +90,9 @@ INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_val
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000001','1000001000002','분단위','seq_term','1','1','60');
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000001','1000001000003','학습률','learning_rate','0.1','2','');
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000001','1000001000002','lower 유무','use_lower','False','3','False');
+INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000002','1000002000001','학습률','learning_rate','0.1','2','');
+INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000002','1000002000002','n_estimators','n_estimators','1000','1','');
+INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000002','1000002000003','max_depth','max_depth','6','1','');
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('20000000000000001','2000001000001','유닛수','hidden_units','64,32,4','1','list');
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('20000000000000001','2000001000002','학습률','learning_rate','0.1','2','');
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('20000000000000001','2000001000003','활성화함수','act_fn','ReLU','3','ReLU,Sigmoid,Tanh');
