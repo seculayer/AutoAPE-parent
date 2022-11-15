@@ -55,12 +55,21 @@ INSERT INTO VAR_FUNC_INFO VALUES('55', 'XXESpWC', 'XXESpWC', '52', '[[@xxespwc()
 INSERT INTO VAR_FUNC_INFO VALUES('56', 'BOSpWC', 'BOSpWC', '53', '[[@bospwc()]]', '2', '- Buffer Overflow 공격에 사용되는 특수문자와 사용자정의 문자 기준으로 추출하는 기능<br />- parameter_1: Max Length<br />- parameter_2: Padding Values(integer)', 'admin', '202110011306', 'N');
 INSERT INTO VAR_FUNC_INFO VALUES('57', 'CFSpWC', 'CFSpWC', '54', '[[@cfspwc()]]', '2', '- Cross-Site Request Forgery 공격에 사용되는 특수문자와 사용자정의 문자 기준으로 추출하는 기능<br />- parameter_1: Max Length<br />- parameter_2: Padding Values(integer)', 'admin', '202110011306', 'N');
 
-# 2022.11.03 DGA
+# 2022.11.03 DGA, DGA Meta, Packet
 INSERT INTO VAR_FUNC_INFO VALUES('58', 'DGAChar2IDX', 'DGAChar2IDX', '55', '[[@dga_char2idx()]]', '0', 'DGA Char2IDX', 'admin', '202211031700', 'N');
+INSERT INTO VAR_FUNC_INFO VALUES('59', 'DNSMetaPreProcessing', 'DNSMetaPreProcessing', '56', '[[@dns_meta_preprocessing()]]', '0', '- DNSMetaPreProcessing : DGA Meta-Data 전처리함수', 'admin', '202211151932', 'N');
+INSERT INTO VAR_FUNC_INFO VALUES('60', 'DateRemaining', 'DateRemaining', '57', '[[@date_remaining()]]', '0', '- DateRemaining : DGA Meta-Data 전처리함수', 'admin', '202211151932', 'N');
+INSERT INTO VAR_FUNC_INFO VALUES('61', 'ListStddev', 'ListStddev', '58', '[[@list_stddev()]]', '0', '- ListStddev : DGA Meta-Data 전처리함수', 'admin', '202211151932', 'N');
+INSERT INTO VAR_FUNC_INFO VALUES('62', 'DateDiff', 'DateDiff', '59', '[[@date_diff()]]', '0', '- DateDiff : DGA Meta-Data 전처리함수', 'admin', '202211151932', 'N');
+INSERT INTO VAR_FUNC_INFO VALUES('63', 'ListUniqueType', 'ListUniqueType', '60', '[[@list_unique_type()]]', '0', '- ListUniqueType : DGA Meta-Data 전처리함수', 'admin', '202211151932', 'N');
+INSERT INTO VAR_FUNC_INFO VALUES('64', 'ListLength', 'ListLength', '61', '[[@list_length()]]', '0', '- ListLength : DGA Meta-Data 전처리함수', 'admin', '202211151932', 'N');
+INSERT INTO VAR_FUNC_INFO VALUES('65', 'ListFirstValue', 'ListFirstValue', '62', '[[@list_first_value()]]', '0', '- ListFirstValue : DGA Meta-Data 전처리함수', 'admin', '202211151932', 'N');
+INSERT INTO VAR_FUNC_INFO VALUES('66', 'VTMalicious', 'VTMalicious', '63', '[[@vt_malicious()]]', '0', '- VTMalicious : DGA Meta-Data 전처리함수', 'admin', '202211151932', 'N');
+INSERT INTO VAR_FUNC_INFO VALUES('67', 'VTPopularityRank', 'VTPopularityRank', '64', '[[@vt_popularity_rank()]]', '1', '- VTPopularityRank : DGA Meta-Data 전처리함수<br />- parameter_1: equipment company(?)', 'admin', '202211151932', 'N');
+INSERT INTO VAR_FUNC_INFO VALUES('68', 'DNSDomainPreProcessing', 'DNSDomainPreProcessing', '65', '[[@dns_domain_preprocessing()]]', '1', '- DNSDomainPreProcessing : Packet 전처리함수', 'admin', '202211151932', 'N');
 
 
 INSERT INTO ALGORITHM_INFO (alg_id, alg_nm, alg_type, algorithm_code, alg_ver, alg_cont, proc_id, proc_dt, lib_type, dist_yn, user_made_yn) VALUES('10000000000000001','TF-GPRM','10','TFGPRMV2','1.0','Tensorflow v2 Gaussian Process Regressor Model.','admin','202206211633','1','N','N');
-INSERT INTO ALGORITHM_INFO (alg_id, alg_nm, alg_type, algorithm_code, alg_ver, alg_cont, proc_id, proc_dt, lib_type, dist_yn, user_made_yn) VALUES('10000000000000002','TF-XGBoost','1','XGBoost','1.0','XGBoost Model.','admin','202211111633','1','N','N');
 INSERT INTO ALGORITHM_INFO (alg_id, alg_nm, alg_type, algorithm_code, alg_ver, alg_cont, proc_id, proc_dt, lib_type, dist_yn, user_made_yn) VALUES('20000000000000001','K-DNN','1,2','KDNN','1.0','Keras Deep Neural Network','admin','201905200900','2','Y','N');
 INSERT INTO ALGORITHM_INFO (alg_id, alg_nm, alg_type, algorithm_code, alg_ver, alg_cont, proc_id, proc_dt, lib_type, dist_yn, user_made_yn) VALUES('20000000000000002','K-CNN','1,2','KCNN','1.0','Keras Convolutional Neural Network','admin','201905200900','2','Y','N');
 INSERT INTO ALGORITHM_INFO (alg_id, alg_nm, alg_type, algorithm_code, alg_ver, alg_cont, proc_id, proc_dt, lib_type, dist_yn, user_made_yn) VALUES('20000000000000003','K-RNN','1,2','KRNN','1.0','Keras Recurrent Neural Network','admin','201905200900','2','Y','N');
@@ -86,13 +95,15 @@ INSERT INTO ALGORITHM_INFO (alg_id, alg_nm, alg_type, algorithm_code, alg_ver, a
 INSERT INTO ALGORITHM_INFO (alg_id, alg_nm, alg_type, algorithm_code, alg_ver, alg_cont, proc_id, proc_dt, lib_type, dist_yn, user_made_yn) VALUES('50000000000000013','SKL-PCA','6','SKLPCA','1.0','Scikit-Learn Principal Component Analysis Dimension Reduction','admin','201908291000','5','N','N');
 INSERT INTO ALGORITHM_INFO (alg_id, alg_nm, alg_type, algorithm_code, alg_ver, alg_cont, proc_id, proc_dt, lib_type, dist_yn, user_made_yn) VALUES('50000000000000014','SKL-ODBKM','7','SKLODBKM','1.0','Scikit-Learn Outlier Detection Based K Means.','admin','201912111033','5','N','N');
 
+# 2022.11.03 DGA, DGA Meta, Packet
+INSERT INTO ALGORITHM_INFO (alg_id, alg_nm, alg_type, algorithm_code, alg_ver, alg_cont, proc_id, proc_dt, lib_type, dist_yn, user_made_yn) VALUES('10000000000000002','TF-XGBoost','1','XGBoost','1.0','XGBoost Model.','admin','202211111633','1','N','N');
+INSERT INTO ALGORITHM_INFO (alg_id, alg_nm, alg_type, algorithm_code, alg_ver, alg_cont, proc_id, proc_dt, lib_type, dist_yn, user_made_yn) VALUES('50000000000000015','SKL-IsolationForest','1','SKLIsolationForest','1.0','Scikit Learn IsolationForest Model.','admin','202211151933','1','N','N');
+INSERT INTO ALGORITHM_INFO (alg_id, alg_nm, alg_type, algorithm_code, alg_ver, alg_cont, proc_id, proc_dt, lib_type, dist_yn, user_made_yn) VALUES('10000000000000003','TF-LightGBM','1','LightGBM','1.0','LightGBM Model.','admin','202211151933','1','N','N');
+
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000001','1000001000001','주기','seq_type','week','3','week');
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000001','1000001000002','분단위','seq_term','1','1','60');
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000001','1000001000003','학습률','learning_rate','0.1','2','');
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000001','1000001000002','lower 유무','use_lower','False','3','False');
-INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000002','1000002000001','학습률','learning_rate','0.1','2','');
-INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000002','1000002000002','n_estimators','n_estimators','1000','1','');
-INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000002','1000002000003','max_depth','max_depth','6','1','');
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('20000000000000001','2000001000001','유닛수','hidden_units','64,32,4','1','list');
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('20000000000000001','2000001000002','학습률','learning_rate','0.1','2','');
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('20000000000000001','2000001000003','활성화함수','act_fn','ReLU','3','ReLU,Sigmoid,Tanh');
@@ -159,3 +170,12 @@ INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_val
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('50000000000000011','5000011000001','epsilon 값','eps','0.5','2','');
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('50000000000000011','5000011000002','최소 샘플 개수','min_samples','5','1','');
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('50000000000000012','5000012000001','클러스터수','num_cluster','2','1','');
+
+# 2022.11.03 DGA, DGA Meta, Packet
+INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000002','1000002000001','학습률','learning_rate','0.1','2','');
+INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000002','1000002000002','n_estimators','n_estimators','1000','1','');
+INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000002','1000002000003','max_depth','max_depth','6','1','');
+INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000003','1000003000001','num_leaves','num_leaves','41','1','');
+INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000003','1000003000002','max_depth','max_depth','21','1','');
+INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('50000000000000015','5000015000001','n_estimators','n_estimators','20','1','');
+INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('50000000000000015','5000015000002','contamination','contamination','0.1','2','');
