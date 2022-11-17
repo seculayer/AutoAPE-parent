@@ -1,0 +1,12 @@
+{
+  "insecure-registries" : ["registry.seculayer.com:31500"],
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "default-runtime": "nvidia",
+  "data-root": "/eyeCloudAI/data/docker",
+  "runtimes": {
+    "nvidia": {
+      "path": "nvidia-container-runtime",
+      "runtimeArgs": []
+    }
+  }
+}
