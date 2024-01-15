@@ -12,7 +12,8 @@ CREATE TABLE `ALGORITHM_INFO` (
   `proc_id` varchar(10) DEFAULT NULL,
   `proc_dt` varchar(14) DEFAULT NULL,
   `lib_type` varchar(2) NOT NULL,
-  `user_made_yn` varchar(1) DEFAULT 'N'
+  `user_made_yn` varchar(1) DEFAULT 'N',
+  PRIMARY KEY(`alg_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `ALGORITHM_PARAM` */
@@ -24,7 +25,8 @@ CREATE TABLE `ALGORITHM_PARAM` (
   `param_code` varchar(450) DEFAULT NULL,
   `param_value` varchar(450) DEFAULT NULL,
   `param_type` char(3) DEFAULT NULL,
-  `param_type_value` varchar(450) DEFAULT NULL
+  `param_type_value` varchar(450) DEFAULT NULL,
+  PRIMARY KEY(`param_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `ALG_ANAL_INFO` */
@@ -37,7 +39,8 @@ CREATE TABLE `ALG_ANAL_INFO` (
   `alg_json` longtext DEFAULT NULL,
   `algorithm_code` varchar(30) DEFAULT NULL,
   `dp_analysis_id` varchar(30) NOT NULL,
-  `project_id` varchar(30) NOT NULL
+  `project_id` varchar(30) NOT NULL,
+  PRIMARY KEY(`alg_anal_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `APE_ALGORITHM_PARAM` */
@@ -49,7 +52,8 @@ CREATE TABLE `APE_ALGORITHM_PARAM` (
   `param_code` varchar(450) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `param_value` varchar(450) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `param_type` char(3) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `param_type_value` varchar(450) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `param_type_value` varchar(450) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY(`algorithm_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `DATASET` */
@@ -61,7 +65,8 @@ CREATE TABLE `DATASET` (
   `dataset_size` varchar(30) NOT NULL,
   `n_rows` varchar(30) NOT NULL,
   `status_cd` varchar(3) DEFAULT NULL,
-  `format_json` text DEFAULT NULL
+  `format_json` text DEFAULT NULL,
+  PRIMARY KEY(`dataset_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `DATA_ANLS_INFO` */
@@ -72,7 +77,8 @@ CREATE TABLE `DATA_ANLS_INFO` (
   `label_yn` varchar(1) NOT NULL DEFAULT 'N',
   `dist_file_cnt` varchar(3) DEFAULT NULL,
   `analysis_file_nm` text DEFAULT NULL,
-  `dataset_id` varchar(30) NOT NULL
+  `dataset_id` varchar(30) NOT NULL,
+  PRIMARY KEY(`data_analysis_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `DP_ANLS_INFO` */
@@ -81,7 +87,22 @@ CREATE TABLE `DP_ANLS_INFO` (
   `dp_analysis_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `data_analysis_json` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `data_analysis_id` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `project_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL
+  `project_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY(`dp_analysis_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE DP_ANLS_INFO ADD INDEX index_03 (data_analysis_json);
+
+/*Table structure for table `EDA_INFO` */
+
+CREATE TABLE `EDA_INFO` (
+  `eda_id` varchar(30) NOT NULL,
+  `status` varchar(2) NOT NULL DEFAULT '1',
+  `selection_field` longtext,
+  `pca_yn` varchar(1) NOT NULL DEFAULT 'N',
+  `dp_analysis_id` varchar(30) NOT NULL,
+  `project_id` varchar(30) NOT NULL,
+  PRIMARY KEY(`eda_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `EDA_INFO` */
@@ -103,7 +124,8 @@ CREATE TABLE `FIELD_CONV_INFO` (
   `field_sn_list` text DEFAULT NULL,
   `proc_id` varchar(10) DEFAULT NULL,
   `proc_dt` varchar(14) DEFAULT NULL,
-  `field_cnvr_comment` text DEFAULT NULL
+  `field_cnvr_comment` text DEFAULT NULL,
+  PRIMARY KEY(`field_cnvr_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `FIELD_INFO` */
@@ -118,7 +140,8 @@ CREATE TABLE `FIELD_INFO` (
   `unique_yn` varchar(1) NOT NULL DEFAULT 'N',
   `dispersion` varchar(1) DEFAULT 'N',
   `max_length` varchar(1) NOT NULL,
-  `is_multiple` varchar(1) NOT NULL DEFAULT 'N'
+  `is_multiple` varchar(1) NOT NULL DEFAULT 'N',
+  PRIMARY KEY(`field_sn`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `LEARN_HIST` */
@@ -131,8 +154,9 @@ CREATE TABLE `LEARN_HIST` (
   `learn_sttus_cd` varchar(2) NOT NULL,
   `start_time` varchar(14) DEFAULT NULL,
   `end_time` varchar(14) DEFAULT NULL,
-  `ml_result_json` text DEFAULT NULL,
-  `eval_result_json` text DEFAULT NULL,
+  `ml_result_json` longtext DEFAULT NULL,
+  `eval_result_json` longtext DEFAULT NULL,
+  `test_accuracy` varchar(20) DEFAULT '',
   `ml_score` varchar(10) DEFAULT NULL,
   `eps` varchar(32) DEFAULT NULL,
   `issue_task_idx` varchar(1) DEFAULT NULL,
@@ -141,8 +165,12 @@ CREATE TABLE `LEARN_HIST` (
   `logs` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `model_bookmark` char(1) DEFAULT 'N',
   `model_alias` varchar(100) DEFAULT NULL,
-  `select_yn` char(1) DEFAULT 'N'
+  `select_yn` char(1) DEFAULT 'N',
+  PRIMARY KEY(`learn_hist_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE LEARN_HIST ADD INDEX index_01 (project_id);
+ALTER TABLE LEARN_HIST ADD INDEX index_02 (learn_hist_no);
 
 /*Table structure for table `INFERENCE_HIST` */
 
@@ -158,7 +186,8 @@ CREATE TABLE `INFERENCE_HIST` (
   `target_field` varchar(200) DEFAULT NULL,
   `data_analysis_id` varchar(30) NOT NULL,
   `infr_accuracy` VARCHAR(10) NOT NULL DEFAULT '0',
-  `infr_f1score` VARCHAR(10) NOT NULL DEFAULT '0'
+  `infr_f1score` VARCHAR(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY(`infr_hist_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `XAI_HIST` */
@@ -172,7 +201,8 @@ CREATE TABLE `XAI_HIST` (
   `end_time` varchar(14) DEFAULT NULL,
   `logs` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `target_field` varchar(200) DEFAULT NULL,
-  `data_analysis_id` varchar(30) NOT NULL
+  `data_analysis_id` varchar(30) NOT NULL,
+  PRIMARY KEY(`xai_hist_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `ML_PARAM_INFO` */
@@ -184,7 +214,8 @@ CREATE TABLE `ML_PARAM_INFO` (
   `param_json` longtext DEFAULT NULL,
   `alg_anal_id` varchar(30) NOT NULL,
   `dp_analysis_id` varchar(30) NOT NULL,
-  `used_yn` varchar(1) DEFAULT 'N'
+  `used_yn` varchar(1) DEFAULT 'N',
+  PRIMARY KEY(`param_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `PROJECT_INFO` */
@@ -199,7 +230,8 @@ CREATE TABLE `PROJECT_INFO` (
   `project_target_field` varchar(200) DEFAULT NULL,
   `modeling_mode` char(2) DEFAULT '1',
   `early_stop_param` longtext DEFAULT '{}',
-  `tag` longtext DEFAULT '';
+  `tag` longtext DEFAULT '',
+  PRIMARY KEY(`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `VAR_FUNC_INFO` */
@@ -209,12 +241,13 @@ CREATE TABLE `VAR_FUNC_INFO` (
   `conv_func_nm` varchar(30) DEFAULT NULL,
   `conv_func_cls` varchar(30) NOT NULL,
   `conv_index` varchar(3) NOT NULL,
-  `conv_func_tag` varchar(30) NOT NULL,
+  `conv_func_tag` varchar(50) NOT NULL,
   `conv_func_param_cnt` varchar(2) NOT NULL,
   `conv_func_cont` text DEFAULT NULL,
   `proc_id` varchar(10) DEFAULT NULL,
   `proc_dt` varchar(14) DEFAULT NULL,
-  `user_made_yn` varchar(1) NOT NULL DEFAULT 'N'
+  `user_made_yn` varchar(1) NOT NULL DEFAULT 'N',
+  PRIMARY KEY(`conv_func_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `DETECT_HIST` */
@@ -222,6 +255,7 @@ CREATE TABLE `VAR_FUNC_INFO` (
 CREATE TABLE `DETECT_HIST` (
   `detect_hist_no` varchar(30) NOT NULL,
   `learn_hist_no` varchar(30) NOT NULL,
+  `model_type` varchar(2) DEFAULT '',
   `detect_status_cd` varchar(2) NOT NULL,
   `start_time` varchar(14) DEFAULT NULL,
   `end_time` varchar(14) DEFAULT NULL,
@@ -229,7 +263,9 @@ CREATE TABLE `DETECT_HIST` (
   `result_fields` varchar(150) DEFAULT '',
   `input_folder_path` longtext DEFAULT '',
   `output_folder_path` longtext DEFAULT '',
-  `num_replicas` int DEFAULT 2
+  `num_replicas` int DEFAULT 2,
+  `model_threashold` varchar(30) DEFAULT '0.5',
+  PRIMARY KEY(`detect_hist_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `DETECT_HIST` */
@@ -240,5 +276,6 @@ CREATE TABLE `MODEL_INFO` (
   `algorithm_json` longtext DEFAULT NULL,
   `dataset_format` varchar(30) DEFAULT NULL,
   `dataset_json` longtext DEFAULT NULL,
-  `project_target_field` varchar(30) DEFAULT NULL
+  `project_target_field` varchar(30) DEFAULT NULL,
+  PRIMARY KEY(`learn_hist_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

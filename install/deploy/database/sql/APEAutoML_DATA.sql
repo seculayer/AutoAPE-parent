@@ -67,6 +67,7 @@ INSERT INTO VAR_FUNC_INFO VALUES('65', 'ListFirstValue', 'ListFirstValue', '62',
 INSERT INTO VAR_FUNC_INFO VALUES('66', 'VTMalicious', 'VTMalicious', '63', '[[@vt_malicious()]]', '0', '- VTMalicious : DGA Meta-Data 전처리함수', 'admin', '202211151932', 'N');
 INSERT INTO VAR_FUNC_INFO VALUES('67', 'VTPopularityRank', 'VTPopularityRank', '64', '[[@vt_popularity_rank()]]', '1', '- VTPopularityRank : DGA Meta-Data 전처리함수<br />- parameter_1: equipment company(?)', 'admin', '202211151932', 'N');
 INSERT INTO VAR_FUNC_INFO VALUES('68', 'DNSDomainPreProcessing', 'DNSDomainPreProcessing', '65', '[[@dns_domain_preprocessing()]]', '1', '- DNSDomainPreProcessing : Packet 전처리함수', 'admin', '202211151932', 'N');
+INSERT INTO VAR_FUNC_INFO VALUES('69', 'TTLsConv', 'TTLsConv', '66', '[[@ttls_conv()]]', '0', '- ttls : Packet 전처리함수', 'admin', '202211151932', 'N');
 
 
 INSERT INTO ALGORITHM_INFO (alg_id, alg_nm, alg_type, algorithm_code, alg_ver, alg_cont, proc_id, proc_dt, lib_type, dist_yn, user_made_yn) VALUES('10000000000000001','TF-GPRM','10','TFGPRMV2','1.0','Tensorflow v2 Gaussian Process Regressor Model.','admin','202206211633','1','N','N');
@@ -179,3 +180,16 @@ INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_val
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000003','1000003000002','max_depth','max_depth','21','1','');
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('50000000000000015','5000015000001','n_estimators','n_estimators','20','1','');
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('50000000000000015','5000015000002','contamination','contamination','0.1','2','');
+
+# 2023. 07. 06
+insert into VAR_FUNC_INFO values('70', 'ImageCLAHE', 'ImageCLAHE', '67', '[[@image_clahe()]]', '0', null, 'admin', '202307061402', 'N');
+
+# 2023. 09. 04
+insert into VAR_FUNC_INFO values('71', 'LabelEncode', 'LabelEncode', '68', '[[@label_encode()]]', '0', null, 'admin', '20230904', 'N');
+
+# 2023. 09. 08
+alter table DATASET add target_field varchar(30);
+alter table PROJECT_INFO drop project_target_field;
+
+# 2023. 10. 31
+alter table DATA_ANLS_INFO add dataset_meta_json longtext;
