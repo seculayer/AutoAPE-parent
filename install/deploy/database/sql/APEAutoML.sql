@@ -66,6 +66,7 @@ CREATE TABLE `DATASET` (
   `n_rows` varchar(30) NOT NULL,
   `status_cd` varchar(3) DEFAULT NULL,
   `format_json` text DEFAULT NULL,
+  `target_field` varchar(30),
   PRIMARY KEY(`dataset_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -78,6 +79,7 @@ CREATE TABLE `DATA_ANLS_INFO` (
   `dist_file_cnt` varchar(3) DEFAULT NULL,
   `analysis_file_nm` text DEFAULT NULL,
   `dataset_id` varchar(30) NOT NULL,
+  `dataset_meta_json` longtext,
   PRIMARY KEY(`data_analysis_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -103,17 +105,6 @@ CREATE TABLE `EDA_INFO` (
   `dp_analysis_id` varchar(30) NOT NULL,
   `project_id` varchar(30) NOT NULL,
   PRIMARY KEY(`eda_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Table structure for table `EDA_INFO` */
-
-CREATE TABLE `EDA_INFO` (
-  `eda_id` varchar(30) NOT NULL,
-  `status` varchar(2) NOT NULL DEFAULT '1',
-  `selection_field` longtext,
-  `pca_yn` varchar(1) NOT NULL DEFAULT 'N',
-  `dp_analysis_id` varchar(30) NOT NULL,
-  `project_id` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `FIELD_CONV_INFO` */
@@ -227,7 +218,6 @@ CREATE TABLE `PROJECT_INFO` (
   `status` varchar(2) NOT NULL,
   `start_time` varchar(14) NOT NULL,
   `end_time` varchar(14) DEFAULT NULL,
-  `project_target_field` varchar(200) DEFAULT NULL,
   `modeling_mode` char(2) DEFAULT '1',
   `early_stop_param` longtext DEFAULT '{}',
   `tag` longtext DEFAULT '',
