@@ -104,7 +104,7 @@ INSERT INTO ALGORITHM_INFO (alg_id, alg_nm, alg_type, algorithm_code, alg_ver, a
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000001','1000001000001','주기','seq_type','week','3','week');
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000001','1000001000002','분단위','seq_term','1','1','60');
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000001','1000001000003','학습률','learning_rate','0.1','2','');
-INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000001','1000001000002','lower 유무','use_lower','False','3','False');
+INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('10000000000000001','1000001000004','lower 유무','use_lower','False','3','False');
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('20000000000000001','2000001000001','유닛수','hidden_units','64,32,4','1','list');
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('20000000000000001','2000001000002','학습률','learning_rate','0.1','2','');
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('20000000000000001','2000001000003','활성화함수','act_fn','ReLU','3','ReLU,Sigmoid,Tanh');
@@ -182,14 +182,7 @@ INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_val
 INSERT INTO ALGORITHM_PARAM (alg_id, param_id, param_name, param_code, param_value, param_type, param_type_value) VALUES('50000000000000015','5000015000002','contamination','contamination','0.1','2','');
 
 # 2023. 07. 06
-insert into VAR_FUNC_INFO values('70', 'ImageCLAHE', 'ImageCLAHE', '67', '[[@image_clahe()]]', '0', null, 'admin', '202307061402', 'N');
+INSERT INTO VAR_FUNC_INFO VALUES('70', 'ImageCLAHE', 'ImageCLAHE', '67', '[[@image_clahe()]]', '0', null, 'admin', '202307061402', 'N');
 
 # 2023. 09. 04
-insert into VAR_FUNC_INFO values('71', 'LabelEncode', 'LabelEncode', '68', '[[@label_encode()]]', '0', null, 'admin', '20230904', 'N');
-
-# 2023. 09. 08
-alter table DATASET add target_field varchar(30);
-alter table PROJECT_INFO drop project_target_field;
-
-# 2023. 10. 31
-alter table DATA_ANLS_INFO add dataset_meta_json longtext;
+INSERT INTO VAR_FUNC_INFO VALUES('71', 'LabelEncode', 'LabelEncode', '68', '[[@label_encode()]]', '0', null, 'admin', '20230904', 'N');
